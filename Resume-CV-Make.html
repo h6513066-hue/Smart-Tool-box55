@@ -1,1026 +1,690 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>AI Resume Builder – Free CV Maker Online | Tools Wonder</title>
-    <meta name="description" content="Create professional resumes in minutes with AI-powered Resume Builder. Free CV Maker with PDF download and ATS-friendly templates.">
-    
-    <!-- Tailwind CSS + Inter Font -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- html2pdf.js for PDF export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
-    <!-- Drag & Drop, Animations, Charts -->
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
-    
-    <style>
-        * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #F8FAFC; }
-        
-        /* Glassmorphism */
-        .glass-header {
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-        }
-        
-        /* Dark Mode */
-        .dark-mode {
-            background: #0F172A;
-            color: #E2E8F0;
-        }
-        .dark-mode .glass-header {
-            background: rgba(15,23,42,0.8);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .dark-mode .card, .dark-mode .bg-white {
-            background: #1E293B !important;
-            color: #E2E8F0;
-            border-color: #334155;
-        }
-        .dark-mode input, .dark-mode textarea, .dark-mode select {
-            background: #0F172A !important;
-            color: #E2E8F0 !important;
-            border-color: #334155 !important;
-        }
-        
-        /* Smooth Transitions */
-        * { transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #F1F5F9; }
-        ::-webkit-scrollbar-thumb { background: #2563EB; border-radius: 8px; }
-        
-        /* Animations */
-        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .step-content { animation: slideIn 0.3s ease-out; }
-        
-        /* Skill Tags */
-        .skill-tag {
-            background: linear-gradient(135deg, #2563EB10, #3B82F610);
-            border: 1px solid #2563EB20;
-            border-radius: 40px;
-            padding: 8px 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        /* Progress Bar */
-        .progress-bar { background: linear-gradient(90deg, #2563EB, #3B82F6); transition: width 0.4s ease; }
-        
-        /* Cards */
-        .card {
-            background: #FFFFFF;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            padding: 24px;
-            border: 1px solid rgba(0,0,0,0.02);
-        }
-        
-        /* Template Preview */
-        .template-preview {
-            border-radius: 12px;
-            border: 2px solid transparent;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-        .template-preview.active { border-color: #2563EB; box-shadow: 0 10px 30px rgba(37,99,235,0.2); }
-        
-        /* Mobile Optimizations */
-        @media (max-width: 768px) {
-            .card { padding: 16px; }
-            .step-indicator { font-size: 14px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Tools Wonder • Complete toolkit</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: #f5f9ff;
+      color: #0b1f33;
+      line-height: 1.5;
+    }
+
+    :root {
+      --blue-deep: #0a3b5b;
+      --blue-primary: #1e6bb8;
+      --blue-light: #d9ebff;
+      --blue-soft-bg: #e4f0fd;
+      --card-shadow: 0 12px 28px -10px rgba(0, 40, 80, 0.15);
+      --hover-lift: translateY(-6px);
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ----- header ----- */
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(0,60,120,0.1);
+    }
+    .logo h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #07263b;
+    }
+    .logo span {
+      color: var(--blue-primary);
+      font-weight: 650;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      font-weight: 550;
+      color: #1e405e;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .nav-links a:hover { color: var(--blue-primary); }
+    .email-badge {
+      background: white;
+      border-radius: 40px;
+      padding: 8px 18px;
+      box-shadow: 0 4px 12px rgba(0,60,130,0.08);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #0a3b5b;
+      border: 1px solid var(--blue-light);
+    }
+    .email-badge i { color: var(--blue-primary); }
+
+    /* ----- hero ----- */
+    .hero {
+      text-align: center;
+      padding: 48px 0 32px;
+    }
+    .hero h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #0b2840;
+      max-width: 800px;
+      margin: 0 auto 12px;
+    }
+    .hero .highlight {
+      color: var(--blue-primary);
+    }
+    .hero p {
+      font-size: 1.3rem;
+      color: #2d4b6e;
+      margin-bottom: 30px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--blue-primary);
+      color: white;
+      font-weight: 600;
+      padding: 14px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 22px rgba(30,107,184,0.3);
+      transition: 0.2s;
+    }
+    .btn-primary:hover {
+      background: #0f4d8a;
+      transform: scale(1.02);
+    }
+    .btn-outline {
+      background: white;
+      border: 2px solid var(--blue-primary);
+      color: var(--blue-primary);
+      font-weight: 600;
+      padding: 12px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+    .btn-outline:hover {
+      background: var(--blue-light);
+    }
+
+    /* ----- stats ----- */
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 48px;
+      margin: 48px 0 40px;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+      line-height: 1.2;
+    }
+    .stat-label {
+      color: #365f7e;
+      font-weight: 500;
+    }
+
+    /* ----- search bar ----- */
+    .search-section {
+      margin: 30px 0 40px;
+    }
+    .search-wrapper {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7a9bc2;
+      font-size: 1.2rem;
+    }
+    #searchInput {
+      width: 100%;
+      padding: 16px 24px 16px 58px;
+      font-size: 1.1rem;
+      border: 2px solid #c7dfff;
+      border-radius: 60px;
+      outline: none;
+      background: white;
+      box-shadow: 0 4px 16px rgba(0,60,130,0.08);
+      transition: 0.2s;
+    }
+    #searchInput:focus {
+      border-color: var(--blue-primary);
+      box-shadow: 0 6px 20px rgba(30,107,184,0.15);
+    }
+
+    /* ----- category tabs (clickable) ----- */
+    .cat-tabs {
+      background: white;
+      border-radius: 60px;
+      padding: 10px 20px;
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 28px;
+      margin: 20px 0 20px;
+      box-shadow: var(--card-shadow);
+    }
+    .cat-tab {
+      font-weight: 600;
+      color: #1d4663;
+      cursor: pointer;
+      padding: 6px 0;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .cat-tab:hover { color: var(--blue-primary); }
+    .cat-tab.active {
+      color: var(--blue-primary);
+      border-bottom-color: var(--blue-primary);
+    }
+
+    /* ----- side categories + main grid ----- */
+    .collection-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 20px 0 40px;
+    }
+    .categories-side {
+      flex: 0 0 200px;
+    }
+    .categories-side h4 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      color: #07263b;
+    }
+    .side-cat-list {
+      list-style: none;
+    }
+    .side-cat-list li {
+      padding: 10px 0 10px 20px;
+      margin-bottom: 4px;
+      font-weight: 500;
+      border-left: 4px solid transparent;
+      color: #1e4c73;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .side-cat-list li:hover {
+      background: var(--blue-light);
+      border-radius: 0 20px 20px 0;
+    }
+    .side-cat-list li.active {
+      border-left-color: var(--blue-primary);
+      background: var(--blue-light);
+      border-radius: 0 20px 20px 0;
+      color: #0a3b5b;
+      font-weight: 600;
+    }
+
+    /* ----- TOOL CARD (exactly as requested) ----- */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 28px;
+    }
+    .tool-card {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 20px 24px;
+      box-shadow: 0 10px 25px -8px rgba(0, 40, 80, 0.15);
+      transition: all 0.3s ease;
+      text-align: center;
+      border: 1px solid #e6f0fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tool-card:hover {
+      transform: var(--hover-lift);
+      box-shadow: 0 20px 30px -10px rgba(30, 107, 184, 0.25);
+      border-color: #b8d9ff;
+    }
+    .tool-icon-container {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(145deg, #e6f0fd, #d4e6ff);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      box-shadow: inset 0 2px 5px rgba(255,255,255,0.8), 0 5px 12px rgba(0,70,150,0.15);
+    }
+    .tool-icon-container i {
+      font-size: 2.5rem;
+      color: var(--blue-primary);
+    }
+    .tool-card h3 {
+      font-size: 1.3rem;
+      font-weight: 650;
+      color: #0b2840;
+      margin-bottom: 10px;
+    }
+    .tool-card p {
+      color: #4d6a8a;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 22px;
+      flex-grow: 1;
+      padding: 0 8px;
+    }
+    .tool-button {
+      display: inline-block;
+      background: var(--blue-primary);
+      color: white;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      box-shadow: 0 5px 15px rgba(30, 107, 184, 0.3);
+      transition: all 0.2s;
+      border: none;
+      width: auto;
+      min-width: 130px;
+      letter-spacing: 0.3px;
+    }
+    .tool-button:hover {
+      background: #0f4d8a;
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(30, 107, 184, 0.4);
+    }
+
+    /* hidden for filtering */
+    .tool-card.hidden {
+      display: none;
+    }
+
+    /* process & why sections (keep clean) */
+    .process-section {
+      background: white;
+      border-radius: 60px;
+      padding: 48px 36px;
+      margin: 60px 0 30px;
+    }
+    .process-header {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .process-steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px 70px;
+    }
+    .step-item {
+      text-align: center;
+      max-width: 180px;
+    }
+    .step-num {
+      background: var(--blue-deep);
+      color: white;
+      width: 48px;
+      height: 48px;
+      font-size: 1.6rem;
+      font-weight: 700;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .why-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin: 50px 0;
+      background: #e4f0fd;
+      border-radius: 60px;
+      padding: 44px 40px;
+    }
+    .why-left { flex: 1 1 300px; }
+    .why-left h3 { font-size: 2.2rem; color: #0b2840; }
+    .why-features {
+      flex: 2 1 500px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px,1fr));
+      gap: 30px;
+    }
+    .feature {
+      background: white;
+      border-radius: 38px;
+      padding: 24px 20px;
+      box-shadow: 0 10px 18px -8px rgba(0,60,120,0.2);
+    }
+    .feature i {
+      font-size: 2rem;
+      background: var(--blue-soft-bg);
+      padding: 12px;
+      border-radius: 20px;
+      color: var(--blue-primary);
+      margin-bottom: 15px;
+    }
+
+    /* footer */
+    .footer {
+      background: white;
+      border-radius: 50px 50px 0 0;
+      padding: 44px 0 30px;
+      margin-top: 50px;
+      border-top: 2px solid var(--blue-light);
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 28px;
+    }
+    .footer-logo h2 { font-size: 2rem; font-weight: 700; color: #07263b; }
+    .footer-logo p { color: #2e577a; margin-top: 4px; }
+    .footer-email i { color: var(--blue-primary); margin-right: 6px; }
+    .footer-email a { text-decoration: none; color: #1a3b57; border-bottom: 1px dashed var(--blue-light); }
+    .footer-links a {
+      text-decoration: none;
+      margin: 0 16px;
+      color: #1e4c73;
+    }
+    .footer-links a:hover { color: var(--blue-primary); }
+
+    @media (max-width:700px){
+      .hero h2 { font-size: 2.2rem; }
+      .stats-row { gap: 24px; }
+      .collection-area { flex-direction: column; }
+      .categories-side { flex-basis: auto; }
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); }
+    }
+  </style>
 </head>
-<body class="bg-[#F8FAFC] dark:bg-[#0F172A]">
-
-<!-- Main App Container -->
-<div id="app" class="min-h-screen">
-    
-    <!-- Glassmorphism Header -->
-    <header class="glass-header sticky top-0 z-50 py-4 px-4 md:px-8">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center text-white text-xl font-bold">
-                    TW
-                </div>
-                <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-[#2563EB] to-[#3B82F6] bg-clip-text text-transparent">
-                    Resume AI Builder
-                </h1>
-            </div>
-            
-            <div class="flex items-center gap-3">
-                <!-- Dark Mode Toggle -->
-                <button onclick="toggleDarkMode()" class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    <i class="fas fa-moon text-gray-600 dark:text-gray-300"></i>
-                </button>
-                
-                <!-- User Menu -->
-                <div class="relative" id="userMenu">
-                    <button onclick="toggleAuthModal()" class="flex items-center gap-2 bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white px-4 py-2 rounded-xl text-sm font-medium hover:shadow-lg transition">
-                        <i class="fas fa-user"></i>
-                        <span class="hidden md:inline">Sign In</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-    
-    <!-- Main Content Area -->
-    <div class="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-8">
-        
-        <!-- Progress Bar & Step Indicator -->
-        <div class="mb-6 md:mb-8">
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300" id="stepIndicator">
-                    Step <span id="currentStep">1</span> of <span id="totalSteps">10</span>
-                </span>
-                <span class="text-sm font-medium text-[#2563EB]" id="stepName">Personal Information</span>
-            </div>
-            <div class="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                <div class="progress-bar h-full rounded-full" id="progressBar" style="width: 10%"></div>
-            </div>
-        </div>
-        
-        <!-- Two Column Layout: Form + Live Preview -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            
-            <!-- LEFT COLUMN: Multi-Step Form -->
-            <div class="space-y-4">
-                <div class="card" id="formContainer">
-                    <!-- Step 1: Personal Information -->
-                    <div id="step1" class="step-content">
-                        <h2 class="text-2xl font-bold mb-6">Personal Information</h2>
-                        
-                        <div class="space-y-4">
-                            <!-- Profile Photo Upload -->
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#2563EB20] to-[#3B82F620] flex items-center justify-center overflow-hidden">
-                                    <img id="profilePreview" class="w-full h-full object-cover hidden" src="" alt="Profile">
-                                    <i class="fas fa-user text-3xl text-gray-400" id="profileIcon"></i>
-                                </div>
-                                <button onclick="triggerPhotoUpload()" class="px-4 py-2 border border-[#2563EB] text-[#2563EB] rounded-xl hover:bg-[#2563EB] hover:text-white transition">
-                                    <i class="fas fa-upload mr-2"></i>Upload Photo
-                                </button>
-                                <input type="file" id="photoUpload" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Full Name *</label>
-                                    <input type="text" id="fullName" placeholder="John Doe" class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] outline-none transition">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Professional Title *</label>
-                                    <input type="text" id="professionalTitle" placeholder="Senior Product Manager" class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] outline-none transition">
-                                </div>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Email *</label>
-                                    <input type="email" id="email" placeholder="john@example.com" class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] outline-none transition">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Phone</label>
-                                    <input type="tel" id="phone" placeholder="+1 234 567 890" class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] outline-none transition">
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Address</label>
-                                <input type="text" id="address" placeholder="New York, NY" class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] outline-none transition">
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">LinkedIn</label>
-                                    <input type="url" id="linkedin" placeholder="linkedin.com/in/johndoe" class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] outline-none transition">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Portfolio</label>
-                                    <input type="url" id="portfolio" placeholder="johndoe.com" class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] outline-none transition">
-                                </div>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Date of Birth (Optional)</label>
-                                    <input type="date" id="dob" class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] outline-none transition">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Nationality (Optional)</label>
-                                    <input type="text" id="nationality" placeholder="American" class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] outline-none transition">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 2: Professional Summary + AI Generator -->
-                    <div id="step2" class="step-content hidden">
-                        <h2 class="text-2xl font-bold mb-6">Professional Summary</h2>
-                        
-                        <div class="space-y-4">
-                            <!-- AI Generator Inputs -->
-                            <div class="bg-gradient-to-br from-[#2563EB08] to-[#3B82F608] p-4 rounded-xl">
-                                <h3 class="font-semibold mb-3">AI Summary Generator</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
-                                    <input type="text" id="aiJobRole" placeholder="Job Role" class="p-2 rounded-lg border border-gray-200">
-                                    <input type="text" id="aiYearsExp" placeholder="Years of Experience" class="p-2 rounded-lg border border-gray-200">
-                                    <input type="text" id="aiKeySkills" placeholder="Key Skills (comma separated)" class="p-2 rounded-lg border border-gray-200">
-                                </div>
-                                <button onclick="generateAISummary()" class="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white px-6 py-2 rounded-xl font-medium hover:shadow-lg transition">
-                                    <i class="fas fa-magic mr-2"></i>Generate AI Summary
-                                </button>
-                            </div>
-                            
-                            <!-- AI Generated Options -->
-                            <div id="aiSummaryOptions" class="hidden space-y-2">
-                                <p class="text-sm text-gray-500">Select a summary:</p>
-                                <div class="space-y-2 max-h-60 overflow-y-auto p-2">
-                                    <!-- Options will be injected here -->
-                                </div>
-                            </div>
-                            
-                            <!-- Summary Textarea -->
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Professional Summary</label>
-                                <textarea id="professionalSummary" rows="5" placeholder="Write a compelling summary or generate with AI above..." class="w-full p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] outline-none transition"></textarea>
-                            </div>
-                            
-                            <!-- Character Count -->
-                            <div class="text-right text-sm text-gray-500">
-                                <span id="summaryChars">0</span>/500 characters
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 3: Work Experience -->
-                    <div id="step3" class="step-content hidden">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold">Work Experience</h2>
-                            <button onclick="addWorkExperience()" class="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white px-4 py-2 rounded-xl text-sm hover:shadow-lg transition">
-                                <i class="fas fa-plus mr-2"></i>Add Experience
-                            </button>
-                        </div>
-                        
-                        <div id="workExperiences" class="space-y-4">
-                            <!-- Dynamic work experiences will be injected here -->
-                        </div>
-                        
-                        <!-- Drag & Drop Hint -->
-                        <p class="text-xs text-gray-400 mt-2"><i class="fas fa-grip-vertical mr-1"></i>Drag to reorder</p>
-                    </div>
-                    
-                    <!-- Step 4: Education -->
-                    <div id="step4" class="step-content hidden">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold">Education</h2>
-                            <button onclick="addEducation()" class="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white px-4 py-2 rounded-xl text-sm hover:shadow-lg transition">
-                                <i class="fas fa-plus mr-2"></i>Add Education
-                            </button>
-                        </div>
-                        
-                        <div id="educationEntries" class="space-y-4">
-                            <!-- Dynamic education entries will be injected here -->
-                        </div>
-                    </div>
-                    
-                    <!-- Step 5: Skills -->
-                    <div id="step5" class="step-content hidden">
-                        <h2 class="text-2xl font-bold mb-6">Skills</h2>
-                        
-                        <!-- Category Tabs -->
-                        <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
-                            <button onclick="setSkillCategory('technical')" class="px-4 py-2 rounded-full text-sm font-medium bg-[#2563EB] text-white">Technical</button>
-                            <button onclick="setSkillCategory('soft')" class="px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-700">Soft Skills</button>
-                            <button onclick="setSkillCategory('tools')" class="px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-700">Tools</button>
-                        </div>
-                        
-                        <!-- Skill Input -->
-                        <div class="flex gap-2 mb-4">
-                            <input type="text" id="skillInput" placeholder="Add a skill" class="flex-1 p-3 rounded-xl border border-gray-200 focus:border-[#2563EB] outline-none">
-                            <button onclick="addSkill()" class="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white px-6 py-3 rounded-xl">Add</button>
-                        </div>
-                        
-                        <!-- Skill Suggestions -->
-                        <div id="skillSuggestions" class="flex flex-wrap gap-2 mb-4">
-                            <!-- AI suggestions will appear here -->
-                        </div>
-                        
-                        <!-- Skills Display -->
-                        <div id="skillsContainer" class="flex flex-wrap gap-2">
-                            <!-- Skills with proficiency sliders will be injected here -->
-                        </div>
-                    </div>
-                    
-                    <!-- Step 6: Projects -->
-                    <div id="step6" class="step-content hidden">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold">Projects</h2>
-                            <button onclick="addProject()" class="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white px-4 py-2 rounded-xl text-sm hover:shadow-lg transition">
-                                <i class="fas fa-plus mr-2"></i>Add Project
-                            </button>
-                        </div>
-                        
-                        <div id="projectsContainer" class="space-y-4">
-                            <!-- Dynamic projects will be injected here -->
-                        </div>
-                    </div>
-                    
-                    <!-- Step 7: Certifications -->
-                    <div id="step7" class="step-content hidden">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold">Certifications</h2>
-                            <button onclick="addCertification()" class="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white px-4 py-2 rounded-xl text-sm hover:shadow-lg transition">
-                                <i class="fas fa-plus mr-2"></i>Add Certification
-                            </button>
-                        </div>
-                        
-                        <div id="certificationsContainer" class="space-y-4">
-                            <!-- Dynamic certifications will be injected here -->
-                        </div>
-                    </div>
-                    
-                    <!-- Step 8: Languages -->
-                    <div id="step8" class="step-content hidden">
-                        <h2 class="text-2xl font-bold mb-6">Languages</h2>
-                        
-                        <div class="space-y-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <input type="text" id="languageName" placeholder="Language (e.g., English)" class="p-3 rounded-xl border border-gray-200">
-                                <select id="languageProficiency" class="p-3 rounded-xl border border-gray-200">
-                                    <option>Beginner</option>
-                                    <option>Intermediate</option>
-                                    <option>Fluent</option>
-                                    <option>Native</option>
-                                </select>
-                            </div>
-                            <button onclick="addLanguage()" class="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white px-6 py-2 rounded-xl">Add Language</button>
-                            
-                            <div id="languagesContainer" class="flex flex-wrap gap-2 mt-4">
-                                <!-- Languages will appear here -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 9: References -->
-                    <div id="step9" class="step-content hidden">
-                        <h2 class="text-2xl font-bold mb-6">References</h2>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" id="referencesUponRequest" onchange="toggleReferences()" class="w-5 h-5 accent-[#2563EB]">
-                                <label for="referencesUponRequest">Available upon request</label>
-                            </div>
-                            
-                            <div id="customReferences" class="space-y-4">
-                                <button onclick="addReference()" class="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white px-4 py-2 rounded-xl text-sm">
-                                    <i class="fas fa-plus mr-2"></i>Add Reference
-                                </button>
-                                <div id="referencesContainer" class="space-y-4">
-                                    <!-- Custom references will be injected here -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 10: Final Preview & Download -->
-                    <div id="step10" class="step-content hidden">
-                        <h2 class="text-2xl font-bold mb-6">Preview & Download</h2>
-                        
-                        <!-- Template Selection -->
-                        <div class="mb-6">
-                            <h3 class="font-semibold mb-3">Choose Template</h3>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                <div class="template-preview p-2 border rounded-xl text-center" onclick="selectTemplate('modern')">
-                                    <div class="h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg mb-2"></div>
-                                    <span class="text-sm">Modern Pro</span>
-                                </div>
-                                <div class="template-preview p-2 border rounded-xl text-center" onclick="selectTemplate('minimal')">
-                                    <div class="h-16 bg-gray-300 rounded-lg mb-2"></div>
-                                    <span class="text-sm">Minimal</span>
-                                </div>
-                                <div class="template-preview p-2 border rounded-xl text-center" onclick="selectTemplate('creative')">
-                                    <div class="h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mb-2"></div>
-                                    <span class="text-sm">Creative</span>
-                                </div>
-                                <div class="template-preview p-2 border rounded-xl text-center" onclick="selectTemplate('corporate')">
-                                    <div class="h-16 bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg mb-2"></div>
-                                    <span class="text-sm">Corporate</span>
-                                </div>
-                                <div class="template-preview p-2 border rounded-xl text-center" onclick="selectTemplate('ats')">
-                                    <div class="h-16 bg-green-500 rounded-lg mb-2"></div>
-                                    <span class="text-sm">ATS Friendly</span>
-                                </div>
-                                <div class="template-preview p-2 border rounded-xl text-center" onclick="selectTemplate('sidebar')">
-                                    <div class="h-16 flex rounded-lg overflow-hidden">
-                                        <div class="w-1/3 bg-blue-800"></div>
-                                        <div class="w-2/3 bg-blue-200"></div>
-                                    </div>
-                                    <span class="text-sm">Bold Sidebar</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Export Options -->
-                        <div class="grid grid-cols-2 gap-3 mb-6">
-                            <button onclick="exportPDF()" class="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white p-4 rounded-xl font-medium hover:shadow-lg transition">
-                                <i class="fas fa-file-pdf mr-2"></i>PDF
-                            </button>
-                            <button onclick="exportDOCX()" class="border-2 border-[#2563EB] text-[#2563EB] p-4 rounded-xl font-medium hover:bg-[#2563EB] hover:text-white transition">
-                                <i class="fas fa-file-word mr-2"></i>DOCX
-                            </button>
-                            <button onclick="printResume()" class="border-2 border-gray-300 p-4 rounded-xl font-medium hover:bg-gray-50 transition">
-                                <i class="fas fa-print mr-2"></i>Print
-                            </button>
-                            <button onclick="shareResume()" class="border-2 border-gray-300 p-4 rounded-xl font-medium hover:bg-gray-50 transition">
-                                <i class="fas fa-share-alt mr-2"></i>Share
-                            </button>
-                        </div>
-                        
-                        <!-- Resume Score -->
-                        <div class="bg-gradient-to-br from-[#2563EB10] to-[#3B82F610] p-6 rounded-xl mb-4">
-                            <h3 class="font-semibold mb-3">Resume Score Analysis</h3>
-                            <div class="flex items-center gap-4 mb-4">
-                                <div class="text-4xl font-bold text-[#2563EB]" id="resumeScore">0</div>
-                                <div class="text-sm text-gray-600">/100</div>
-                            </div>
-                            <div id="scoreBreakdown" class="space-y-2 text-sm">
-                                <!-- Score breakdown will be injected here -->
-                            </div>
-                            <div id="scoreSuggestions" class="mt-4 p-3 bg-white dark:bg-gray-800 rounded-lg text-sm">
-                                <!-- Suggestions will appear here -->
-                            </div>
-                        </div>
-                        
-                        <!-- Final CTA -->
-                        <button onclick="completeResume()" class="w-full bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white p-4 rounded-xl font-bold text-lg hover:shadow-xl transition">
-                            <i class="fas fa-check-circle mr-2"></i>Complete Resume
-                        </button>
-                    </div>
-                    
-                    <!-- Navigation Buttons -->
-                    <div class="flex justify-between mt-8 pt-4 border-t border-gray-200">
-                        <button onclick="prevStep()" id="prevBtn" class="px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition disabled:opacity-50">
-                            <i class="fas fa-arrow-left mr-2"></i>Previous
-                        </button>
-                        <button onclick="nextStep()" id="nextBtn" class="bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white px-6 py-3 rounded-xl hover:shadow-lg transition">
-                            Next <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- RIGHT COLUMN: Live Preview -->
-            <div class="lg:sticky lg:top-24 h-fit">
-                <div class="card" id="resumePreview">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-semibold">Live Preview</h3>
-                        <button onclick="refreshPreview()" class="text-[#2563EB] text-sm">
-                            <i class="fas fa-sync-alt mr-1"></i>Refresh
-                        </button>
-                    </div>
-                    
-                    <!-- Resume Preview Content -->
-                    <div id="previewContent" class="prose max-w-none dark:prose-invert">
-                        <!-- Live preview will be rendered here -->
-                    </div>
-                </div>
-            </div>
-        </div>
+<body>
+<div class="container">
+  <!-- header -->
+  <div class="top-bar">
+    <div class="logo"><h1>Tools <span>Wonder</span></h1></div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Tools</a>
+      <a href="#">Contact</a>
     </div>
-    
-    <!-- Footer -->
-    <footer class="border-t border-gray-200 dark:border-gray-800 mt-12 py-6 px-4 text-center text-sm text-gray-500">
-        <p>© 2026 Tools Wonder - AI Resume Builder. All rights reserved.</p>
-    </footer>
-</div>
+    <div class="email-badge"><i class="fas fa-envelope"></i> toolswonder1@gmail.com</div>
+  </div>
 
-<!-- Auth Modal (Simplified) -->
-<div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full">
-        <h3 class="text-2xl font-bold mb-6">Sign In</h3>
-        <button class="w-full border-2 border-gray-300 p-3 rounded-xl flex items-center justify-center gap-3 hover:bg-gray-50 transition mb-4">
-            <i class="fab fa-google text-red-500"></i>Continue with Google
-        </button>
-        <p class="text-sm text-gray-500 text-center">Guest mode available</p>
-        <button onclick="closeAuthModal()" class="mt-4 text-[#2563EB]">Continue as Guest</button>
+  <!-- hero -->
+  <section class="hero">
+    <h2>Welcome to <span class="highlight">Tools Wonder</span></h2>
+    <p>Your daily tools, all in one place – fast, free & secure</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">Explore Tools</a>
+      <a href="#" class="btn-outline">View All</a>
     </div>
-</div>
+  </section>
 
-<!-- Confetti Canvas -->
-<canvas id="confettiCanvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
+  <!-- stats -->
+  <div class="stats-row">
+    <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Sarkari Tools</div></div>
+    <div class="stat-item"><div class="stat-number">75K+</div><div class="stat-label">Active Users</div></div>
+    <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Secure & Free</div></div>
+    <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Fast Access</div></div>
+  </div>
+
+  <!-- search bar -->
+  <div class="search-section">
+    <div class="search-wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search a tool (converter, pdf, calculator...)">
+    </div>
+  </div>
+
+  <!-- category tabs -->
+  <div style="display: flex; justify-content: center;">
+    <div class="cat-tabs" id="categoryTabs">
+      <span class="cat-tab active" data-category="all">All Tools</span>
+      <span class="cat-tab" data-category="document">Document Tools</span>
+      <span class="cat-tab" data-category="converters">Converters</span>
+      <span class="cat-tab" data-category="calculators">Calculators</span>
+      <span class="cat-tab" data-category="utilities">Utilities</span>
+      <span class="cat-tab" data-category="color">Color Tools</span>
+      <span class="cat-tab" data-category="developer">Developer</span>
+    </div>
+  </div>
+
+  <!-- side categories + tool grid -->
+  <div class="collection-area">
+    <div class="categories-side">
+      <h4>Categories</h4>
+      <ul class="side-cat-list" id="sideCategoryList">
+        <li class="active" data-category="all">📌 All Tools</li>
+        <li data-category="document">📄 Document Tools</li>
+        <li data-category="converters">🔄 Converters</li>
+        <li data-category="calculators">🧮 Calculators</li>
+        <li data-category="utilities">🛠️ Utilities</li>
+        <li data-category="color">🎨 Color Tools</li>
+        <li data-category="developer">🌐 Developer</li>
+      </ul>
+    </div>
+
+    <!-- tools grid (dynamic) -->
+    <div class="tools-grid-parent">
+      <div class="tools-grid" id="dynamicToolGrid"></div>
+    </div>
+  </div>
+
+  <!-- process section -->
+  <div class="process-section">
+    <div class="process-header"><i class="fas fa-magic" style="color: var(--blue-primary);"></i> Process & Generate</div>
+    <div style="text-align: center; max-width:600px; margin: 0 auto 30px; color:#32648c;">Let our tools work for you – intuitive and user‑friendly.</div>
+    <div class="process-steps">
+      <div class="step-item"><div class="step-num">1</div><p>Choose Your Tool</p></div>
+      <div class="step-item"><div class="step-num">2</div><p>Configure</p></div>
+      <div class="step-item"><div class="step-num">3</div><p>Start Using</p></div>
+      <div class="step-item"><div class="step-num">4</div><p>View All Tools</p></div>
+    </div>
+  </div>
+
+  <!-- why choose -->
+  <div class="why-section">
+    <div class="why-left">
+      <h3>Why Choose Tools Wonder?</h3>
+      <p style="font-size: 1.2rem; margin-top: 20px;">The most trusted online toolkit for everyday tasks.</p>
+    </div>
+    <div class="why-features">
+      <div class="feature"><i class="fas fa-bolt"></i><h4>Lightning Fast</h4><p>Instant results</p></div>
+      <div class="feature"><i class="fas fa-lock"></i><h4>100% Secure</h4><p>Encrypted & safe</p></div>
+      <div class="feature"><i class="fas fa-fingerprint"></i><h4>Thumb Resizer</h4><p>Perfect for docs</p></div>
+      <div class="feature"><i class="fas fa-compress-alt"></i><h4>Compression</h4><p>6MB / 20KB data</p></div>
+      <div class="feature"><i class="fas fa-qrcode"></i><h4>QR Scanner</h4><p>All-in-One scanner</p></div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <h2>Tools Wonder</h2>
+        <p>Simplifying your digital life.</p>
+      </div>
+      <div class="footer-email">
+        <i class="fas fa-envelope"></i> <a href="mailto:toolswonder1@gmail.com">toolswonder1@gmail.com</a>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+</div>
 
 <script>
-    // ==================== STATE MANAGEMENT ====================
-    let currentStep = 1;
-    const totalSteps = 10;
-    
-    // Resume Data
-    let resumeData = {
-        personal: {
-            fullName: '',
-            title: '',
-            email: '',
-            phone: '',
-            address: '',
-            linkedin: '',
-            portfolio: '',
-            photo: '',
-            dob: '',
-            nationality: ''
-        },
-        summary: '',
-        workExperience: [],
-        education: [],
-        skills: [],
-        projects: [],
-        certifications: [],
-        languages: [],
-        references: { uponRequest: true, custom: [] },
-        selectedTemplate: 'modern',
-        accentColor: '#2563EB'
-    };
-    
-    // ==================== INITIALIZATION ====================
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add initial empty work experience
-        addWorkExperience();
-        addEducation();
-        addSkillSuggestion();
-        updatePreview();
-        updateProgress();
+  (function() {
+    // ------------- TOOL DATABASE with exact card structure -------------
+    const tools = [
+      // Image tools (converters / utilities)
+      { name: "Image Converter", desc: "Convert between JPG, PNG, GIF, WEBP and more formats", icon: "fa-image", category: "converters", link: "Resume-CV-Make.html" },
+      { name: "Image Compressor", desc: "Reduce image file size while maintaining quality", icon: "fa-compress-alt", category: "utilities", link: "image-compressor.html" },
+      { name: "Image Resizer", desc: "Resize images to any dimension for any platform", icon: "fa-expand-alt", category: "utilities", link: "image-resizer.html" },
+      { name: "Image Cropper", desc: "Crop unwanted areas precisely", icon: "fa-crop", category: "utilities", link: "image-cropper.html" },
+      { name: "Image to Text (OCR)", desc: "Extract text from images", icon: "fa-font", category: "converters", link: "ocr.html" },
+      // Document tools
+      { name: "PDF to Word", desc: "Convert PDF files to editable Word documents", icon: "fa-file-pdf", category: "document", link: "pdf-to-word.html" },
+      { name: "PDF Compressor", desc: "Reduce PDF file size", icon: "fa-file-pdf", category: "document", link: "pdf-compressor.html" },
+      { name: "PDF Merger", desc: "Combine multiple PDFs into one", icon: "fa-file-pdf", category: "document", link: "pdf-merger.html" },
+      { name: "PDF Splitter", desc: "Split PDF into separate pages", icon: "fa-file-pdf", category: "document", link: "pdf-splitter.html" },
+      { name: "PDF Lock/Unlock", desc: "Add or remove passwords", icon: "fa-lock", category: "document", link: "pdf-lock.html" },
+      { name: "eSign PDF", desc: "Digital signatures", icon: "fa-pen", category: "document", link: "esign.html" },
+      // Calculator tools
+      { name: "Age Calculator", desc: "Calculate exact age for exams", icon: "fa-calendar-alt", category: "calculators", link: "age-calculator.html" },
+      { name: "BMI Calculator", desc: "Body mass index", icon: "fa-heart", category: "calculators", link: "bmi.html" },
+      { name: "Loan EMI Calculator", desc: "Monthly EMI amount", icon: "fa-rupee-sign", category: "calculators", link: "emi.html" },
+      { name: "GST Calculator", desc: "Tax inclusive/exclusive", icon: "fa-calculator", category: "calculators", link: "gst.html" },
+      { name: "Currency Converter", desc: "Live exchange rates", icon: "fa-exchange-alt", category: "converters", link: "currency.html" },
+      // Text / Utility
+      { name: "Text Case Converter", desc: "UPPER, lower, Title case", icon: "fa-i-cursor", category: "utilities", link: "text-case.html" },
+      { name: "Word Counter", desc: "Count words & characters", icon: "fa-counter", category: "utilities", link: "word-count.html" },
+      { name: "Remove Duplicate Lines", desc: "Clean up text lists", icon: "fa-eraser", category: "utilities", link: "remove-duplicates.html" },
+      // Developer tools
+      { name: "JSON Formatter", desc: "Validate & pretty-print JSON", icon: "fa-code", category: "developer", link: "json-formatter.html" },
+      { name: "HTML/CSS Minifier", desc: "Minify code", icon: "fa-code", category: "developer", link: "minifier.html" },
+      { name: "Base64 Encoder", desc: "Encode to base64", icon: "fa-lock", category: "developer", link: "base64.html" },
+      { name: "URL Encoder", desc: "Percent encoding", icon: "fa-link", category: "developer", link: "url-encode.html" },
+      { name: "Regex Tester", desc: "Test regular expressions", icon: "fa-terminal", category: "developer", link: "regex.html" },
+      // Color tools
+      { name: "Color Picker", desc: "Pick from image, HEX/RGB", icon: "fa-palette", category: "color", link: "color-picker.html" },
+      { name: "HEX to RGB", desc: "Convert color codes", icon: "fa-palette", category: "color", link: "hex-to-rgb.html" },
+      { name: "Gradient Generator", desc: "Create CSS gradients", icon: "fa-paint-brush", category: "color", link: "gradient.html" },
+      { name: "Contrast Checker", desc: "Check WCAG contrast", icon: "fa-eye", category: "color", link: "contrast.html" },
+      // Utility extras
+      { name: "QR Generator", desc: "QR for docs & links", icon: "fa-qrcode", category: "utilities", link: "qr.html" },
+      { name: "Barcode Generator", desc: "Generate barcodes", icon: "fa-barcode", category: "utilities", link: "barcode.html" },
+      { name: "UUID Generator", desc: "Unique identifiers", icon: "fa-id-card", category: "utilities", link: "uuid.html" },
+      { name: "Unit Converter", desc: "Length, mass, volume", icon: "fa-scale-balanced", category: "converters", link: "unit-converter.html" },
+      { name: "Password Generator", desc: "Secure random passwords", icon: "fa-key", category: "utilities", link: "password.html" }
+    ];
+
+    const grid = document.getElementById('dynamicToolGrid');
+    const searchInput = document.getElementById('searchInput');
+    const catTabs = document.querySelectorAll('.cat-tab');
+    const sideItems = document.querySelectorAll('#sideCategoryList li');
+
+    let currentCategory = 'all';
+    let searchTerm = '';
+
+    // Render cards based on category + search
+    function render() {
+      let filtered = tools.filter(t => 
+        (currentCategory === 'all' || t.category === currentCategory) &&
+        (t.name.toLowerCase().includes(searchTerm) || t.desc.toLowerCase().includes(searchTerm))
+      );
+
+      grid.innerHTML = '';
+      filtered.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'tool-card';
+        // using exact requested structure
+        card.innerHTML = `
+          <div class="tool-icon-container">
+            <i class="fas ${t.icon}"></i>
+          </div>
+          <h3>${t.name}</h3>
+          <p>${t.desc}</p>
+          <a href="${t.link}" class="tool-button">Use Tool</a>
+        `;
+        grid.appendChild(card);
+      });
+
+      // if no results
+      if (filtered.length === 0) {
+        grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding:40px;">No tools match your search.</p>';
+      }
+    }
+
+    // update active UI
+    function setActiveCategory(cat) {
+      currentCategory = cat;
+      // update tabs
+      catTabs.forEach(tab => {
+        if (tab.dataset.category === cat) tab.classList.add('active');
+        else tab.classList.remove('active');
+      });
+      sideItems.forEach(item => {
+        if (item.dataset.category === cat) item.classList.add('active');
+        else item.classList.remove('active');
+      });
+      render();
+    }
+
+    // event listeners
+    catTabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        setActiveCategory(tab.dataset.category);
+      });
     });
-    
-    // ==================== STEP NAVIGATION ====================
-    function nextStep() {
-        if (currentStep < totalSteps) {
-            // Validate current step before proceeding
-            if (!validateStep(currentStep)) {
-                showToast('Please fill all required fields', 'error');
-                return;
-            }
-            
-            document.getElementById(`step${currentStep}`).classList.add('hidden');
-            currentStep++;
-            document.getElementById(`step${currentStep}`).classList.remove('hidden');
-            updateProgress();
-            updateStepName();
-            
-            // If last step, calculate resume score
-            if (currentStep === 10) {
-                calculateResumeScore();
-            }
+
+    sideItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        setActiveCategory(item.dataset.category);
+      });
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      searchTerm = e.target.value.trim().toLowerCase();
+      render();
+    });
+
+    // block dummy navigation for demo (but keep links as they are)
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        // allow actual navigation only for tool buttons (they have real .html links)
+        if (!link.classList.contains('tool-button')) {
+          e.preventDefault(); // prevent header/footer dummy links
         }
-    }
-    
-    function prevStep() {
-        if (currentStep > 1) {
-            document.getElementById(`step${currentStep}`).classList.add('hidden');
-            currentStep--;
-            document.getElementById(`step${currentStep}`).classList.remove('hidden');
-            updateProgress();
-            updateStepName();
-        }
-    }
-    
-    function updateProgress() {
-        document.getElementById('currentStep').textContent = currentStep;
-        document.getElementById('totalSteps').textContent = totalSteps;
-        const progress = (currentStep / totalSteps) * 100;
-        document.getElementById('progressBar').style.width = `${progress}%`;
-    }
-    
-    function updateStepName() {
-        const stepNames = [
-            'Personal Information',
-            'Professional Summary',
-            'Work Experience',
-            'Education',
-            'Skills',
-            'Projects',
-            'Certifications',
-            'Languages',
-            'References',
-            'Final Preview'
-        ];
-        document.getElementById('stepName').textContent = stepNames[currentStep - 1];
-    }
-    
-    function validateStep(step) {
-        switch(step) {
-            case 1:
-                return document.getElementById('fullName').value && 
-                       document.getElementById('professionalTitle').value && 
-                       document.getElementById('email').value;
-            default:
-                return true;
-        }
-    }
-    
-    // ==================== WORK EXPERIENCE ====================
-    function addWorkExperience() {
-        const container = document.getElementById('workExperiences');
-        const id = Date.now();
-        const html = `
-            <div class="work-item card p-4 space-y-3" data-id="${id}">
-                <div class="flex justify-between items-center">
-                    <i class="fas fa-grip-vertical text-gray-400 cursor-move"></i>
-                    <button onclick="removeWorkExperience(${id})" class="text-red-500">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <input type="text" placeholder="Job Title" class="p-2 rounded-lg border border-gray-200" oninput="updateWorkExp(${id}, 'title', this.value)">
-                    <input type="text" placeholder="Company Name" class="p-2 rounded-lg border border-gray-200" oninput="updateWorkExp(${id}, 'company', this.value)">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <input type="text" placeholder="Location" class="p-2 rounded-lg border border-gray-200" oninput="updateWorkExp(${id}, 'location', this.value)">
-                    <div class="flex gap-2">
-                        <input type="month" placeholder="Start Date" class="flex-1 p-2 rounded-lg border border-gray-200" oninput="updateWorkExp(${id}, 'startDate', this.value)">
-                        <input type="month" placeholder="End Date" class="flex-1 p-2 rounded-lg border border-gray-200" oninput="updateWorkExp(${id}, 'endDate', this.value)">
-                    </div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <input type="checkbox" id="current_${id}" onchange="toggleCurrentWork(${id}, this.checked)">
-                    <label for="current_${id}">Currently Working</label>
-                </div>
-                <textarea placeholder="Description (bullet points)" rows="3" class="w-full p-2 rounded-lg border border-gray-200" oninput="updateWorkExp(${id}, 'description', this.value)"></textarea>
-                <button onclick="improveBulletPoints(${id})" class="text-sm text-[#2563EB]">
-                    <i class="fas fa-magic mr-1"></i>Improve with AI
-                </button>
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', html);
-        
-        // Initialize Sortable for drag-drop
-        new Sortable(container, {
-            animation: 150,
-            handle: '.fa-grip-vertical'
-        });
-    }
-    
-    function removeWorkExperience(id) {
-        document.querySelector(`.work-item[data-id="${id}"]`).remove();
-        updatePreview();
-    }
-    
-    // ==================== SKILLS ====================
-    function addSkill() {
-        const skillInput = document.getElementById('skillInput');
-        const skillName = skillInput.value.trim();
-        if (!skillName) return;
-        
-        const container = document.getElementById('skillsContainer');
-        const id = Date.now();
-        const html = `
-            <div class="skill-item relative group" data-id="${id}">
-                <div class="skill-tag">
-                    <span>${skillName}</span>
-                    <input type="range" min="0" max="100" value="80" class="w-16 h-1" onchange="updateSkillProficiency(${id}, this.value)">
-                    <span class="text-xs proficiency-value">80%</span>
-                    <button onclick="removeSkill(${id})" class="text-red-500 opacity-0 group-hover:opacity-100 transition">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', html);
-        skillInput.value = '';
-        updatePreview();
-    }
-    
-    function removeSkill(id) {
-        document.querySelector(`.skill-item[data-id="${id}"]`).remove();
-        updatePreview();
-    }
-    
-    function updateSkillProficiency(id, value) {
-        const item = document.querySelector(`.skill-item[data-id="${id}"]`);
-        if (item) {
-            item.querySelector('.proficiency-value').textContent = value + '%';
-        }
-        updatePreview();
-    }
-    
-    // AI Skill Suggestions
-    function addSkillSuggestion() {
-        const suggestions = ['JavaScript', 'React', 'Node.js', 'Python', 'Project Management', 'Leadership', 'Figma', 'AWS'];
-        const container = document.getElementById('skillSuggestions');
-        container.innerHTML = '';
-        suggestions.forEach(skill => {
-            const btn = document.createElement('button');
-            btn.className = 'px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm hover:bg-[#2563EB] hover:text-white transition';
-            btn.textContent = skill;
-            btn.onclick = () => {
-                document.getElementById('skillInput').value = skill;
-                addSkill();
-            };
-            container.appendChild(btn);
-        });
-    }
-    
-    // ==================== AI SUMMARY GENERATOR ====================
-    function generateAISummary() {
-        const role = document.getElementById('aiJobRole').value || 'Professional';
-        const years = document.getElementById('aiYearsExp').value || '5+';
-        const skills = document.getElementById('aiKeySkills').value || 'leadership, communication';
-        
-        // Simulate AI generation (in production, call OpenAI API)
-        const summaries = [
-            `Results-oriented ${role} with ${years} years of experience driving business growth and operational excellence. Proven track record in ${skills.split(',')[0]} and team leadership.`,
-            `Innovative ${role} leveraging ${years} years of expertise to deliver high-impact solutions. Skilled in ${skills} with a focus on measurable results.`,
-            `Dynamic ${role} offering ${years} years of progressive experience. Expertise in ${skills} with a commitment to continuous improvement and strategic planning.`
-        ];
-        
-        const optionsContainer = document.getElementById('aiSummaryOptions');
-        optionsContainer.classList.remove('hidden');
-        optionsContainer.querySelector('.space-y-2').innerHTML = summaries.map((s, i) => `
-            <div class="p-3 border rounded-lg cursor-pointer hover:border-[#2563EB]" onclick="selectSummary(${i})">
-                <p class="text-sm">${s}</p>
-            </div>
-        `).join('');
-        
-        window.generatedSummaries = summaries;
-    }
-    
-    function selectSummary(index) {
-        if (window.generatedSummaries && window.generatedSummaries[index]) {
-            document.getElementById('professionalSummary').value = window.generatedSummaries[index];
-            document.getElementById('summaryChars').textContent = window.generatedSummaries[index].length;
-            document.getElementById('aiSummaryOptions').classList.add('hidden');
-            updatePreview();
-        }
-    }
-    
-    // ==================== LIVE PREVIEW ====================
-    function updatePreview() {
-        const preview = document.getElementById('previewContent');
-        const data = resumeData;
-        
-        // Gather form data
-        data.personal.fullName = document.getElementById('fullName')?.value || 'Your Name';
-        data.personal.title = document.getElementById('professionalTitle')?.value || 'Professional Title';
-        data.summary = document.getElementById('professionalSummary')?.value || '';
-        
-        // Build preview HTML based on selected template
-        let html = '';
-        
-        if (data.selectedTemplate === 'modern') {
-            html = `
-                <div class="space-y-4">
-                    <div class="flex items-start gap-4">
-                        ${data.personal.photo ? `<img src="${data.personal.photo}" class="w-20 h-20 rounded-full object-cover">` : ''}
-                        <div>
-                            <h2 class="text-2xl font-bold">${data.personal.fullName}</h2>
-                            <p class="text-[#2563EB]">${data.personal.title}</p>
-                        </div>
-                    </div>
-                    <p class="text-sm">${data.summary}</p>
-                    <hr>
-                    <div class="grid grid-cols-2 gap-2 text-sm">
-                        <p><i class="fas fa-envelope mr-2"></i>${data.personal.email}</p>
-                        <p><i class="fas fa-phone mr-2"></i>${data.personal.phone}</p>
-                    </div>
-                </div>
-            `;
-        }
-        
-        preview.innerHTML = html;
-    }
-    
-    function refreshPreview() {
-        updatePreview();
-        showToast('Preview updated', 'success');
-    }
-    
-    // ==================== RESUME SCORE ====================
-    function calculateResumeScore() {
-        let score = 0;
-        const maxScore = 100;
-        let breakdown = [];
-        let suggestions = [];
-        
-        // Check personal info
-        if (resumeData.personal.fullName && resumeData.personal.title && resumeData.personal.email) {
-            score += 10;
-            breakdown.push({ item: 'Personal Info', score: 10, max: 10 });
-        } else {
-            suggestions.push('Complete all personal information fields');
-        }
-        
-        // Check summary
-        if (resumeData.summary && resumeData.summary.length > 50) {
-            score += 15;
-            breakdown.push({ item: 'Summary', score: 15, max: 15 });
-        } else {
-            suggestions.push('Add a more detailed professional summary (50+ characters)');
-        }
-        
-        // Check work experience
-        if (resumeData.workExperience.length > 0) {
-            score += Math.min(25, resumeData.workExperience.length * 5);
-            breakdown.push({ item: 'Experience', score: Math.min(25, resumeData.workExperience.length * 5), max: 25 });
-        } else {
-            suggestions.push('Add at least one work experience entry');
-        }
-        
-        // Check skills
-        if (resumeData.skills.length > 0) {
-            score += Math.min(15, resumeData.skills.length * 3);
-            breakdown.push({ item: 'Skills', score: Math.min(15, resumeData.skills.length * 3), max: 15 });
-        } else {
-            suggestions.push('Add skills to improve your resume');
-        }
-        
-        // Check education
-        if (resumeData.education.length > 0) {
-            score += 15;
-            breakdown.push({ item: 'Education', score: 15, max: 15 });
-        } else {
-            suggestions.push('Add your educational background');
-        }
-        
-        // Check projects
-        if (resumeData.projects.length > 0) {
-            score += 10;
-            breakdown.push({ item: 'Projects', score: 10, max: 10 });
-        }
-        
-        // Certifications
-        if (resumeData.certifications.length > 0) {
-            score += 10;
-            breakdown.push({ item: 'Certifications', score: 10, max: 10 });
-        }
-        
-        document.getElementById('resumeScore').textContent = score;
-        
-        // Breakdown HTML
-        const breakdownHTML = breakdown.map(b => `
-            <div class="flex justify-between">
-                <span>${b.item}</span>
-                <span class="font-medium">${b.score}/${b.max}</span>
-            </div>
-        `).join('');
-        document.getElementById('scoreBreakdown').innerHTML = breakdownHTML;
-        
-        // Suggestions
-        if (suggestions.length > 0) {
-            document.getElementById('scoreSuggestions').innerHTML = `
-                <p class="font-medium mb-2">Suggestions:</p>
-                <ul class="list-disc list-inside text-sm text-gray-600">
-                    ${suggestions.map(s => `<li>${s}</li>`).join('')}
-                </ul>
-            `;
-        } else {
-            document.getElementById('scoreSuggestions').innerHTML = '<p class="text-green-600">Great job! Your resume is well-optimized.</p>';
-        }
-    }
-    
-    // ==================== EXPORT FUNCTIONS ====================
-    function exportPDF() {
-        const element = document.getElementById('previewContent');
-        const opt = {
-            margin: 1,
-            filename: 'resume.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, letterRendering: true },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save();
-    }
-    
-    function exportDOCX() {
-        // Simulate DOCX export
-        showToast('DOCX export coming soon!', 'info');
-    }
-    
-    function printResume() {
-        window.print();
-    }
-    
-    function shareResume() {
-        // Generate unique link (simulated)
-        const link = `https://toolswonder.com/resume/${Math.random().toString(36).substr(2, 9)}`;
-        navigator.clipboard.writeText(link).then(() => {
-            showToast('Share link copied to clipboard!', 'success');
-        });
-    }
-    
-    // ==================== AI FEATURES ====================
-    function improveBulletPoints(id) {
-        const textarea = document.querySelector(`.work-item[data-id="${id}"] textarea`);
-        if (!textarea) return;
-        
-        const original = textarea.value;
-        // Simulate AI improvement (in production, call API)
-        const improved = original + '\n• Achieved measurable results through strategic initiatives\n• Collaborated with cross-functional teams to deliver projects';
-        textarea.value = improved;
-        updatePreview();
-    }
-    
-    // ==================== COMPLETION ====================
-    function completeResume() {
-        // Trigger confetti
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-        
-        showToast('🎉 Congratulations! Your resume is ready!', 'success');
-        
-        // Show success badge
-        const badge = document.createElement('div');
-        badge.className = 'fixed top-20 right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 animate-bounce';
-        badge.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Resume Ready!';
-        document.body.appendChild(badge);
-        setTimeout(() => badge.remove(), 3000);
-    }
-    
-    // ==================== UTILITIES ====================
-    function showToast(message, type = 'info') {
-        // Simple toast implementation
-        const toast = document.createElement('div');
-        toast.className = `fixed bottom-4 right-4 px-6 py-3 rounded-xl shadow-lg z-50 ${
-            type === 'success' ? 'bg-green-500' : 
-            type === 'error' ? 'bg-red-500' : 'bg-blue-500'
-        } text-white`;
-        toast.textContent = message;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
-    }
-    
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-    }
-    
-    function toggleAuthModal() {
-        document.getElementById('authModal').classList.toggle('hidden');
-    }
-    
-    function closeAuthModal() {
-        document.getElementById('authModal').classList.add('hidden');
-    }
-    
-    function handlePhotoUpload(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                document.getElementById('profilePreview').src = e.target.result;
-                document.getElementById('profilePreview').classList.remove('hidden');
-                document.getElementById('profileIcon').classList.add('hidden');
-                resumeData.personal.photo = e.target.result;
-                updatePreview();
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-    
-    function triggerPhotoUpload() {
-        document.getElementById('photoUpload').click();
-    }
-    
-    // ==================== INITIALIZATION HELPERS ====================
-    // Add missing functions to avoid errors
-    function addEducation() { /* Similar to work experience */ }
-    function addProject() { /* Similar to work experience */ }
-    function addCertification() { /* Similar to work experience */ }
-    function addLanguage() { /* Add language to list */ }
-    function addReference() { /* Add reference */ }
-    function selectTemplate(template) { 
-        resumeData.selectedTemplate = template;
-        document.querySelectorAll('.template-preview').forEach(el => el.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-        updatePreview();
-    }
-    function setSkillCategory(category) { /* Filter skills */ }
-    function toggleReferences() { 
-        const checked = document.getElementById('referencesUponRequest').checked;
-        resumeData.references.uponRequest = checked;
-    }
-    
-    // Add character counter for summary
-    setInterval(() => {
-        const summary = document.getElementById('professionalSummary');
-        if (summary) {
-            document.getElementById('summaryChars').textContent = summary.value.length;
-        }
-    }, 100);
+      });
+    });
+
+    // initial render
+    render();
+  })();
 </script>
 </body>
 </html>
