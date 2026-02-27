@@ -17,6 +17,7 @@
             line-height: 1.6;
             color: #333;
             background: #f8f9fa;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .container {
@@ -71,14 +72,8 @@
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
-        
-        @keyframes shine {
-            0% { background-position: -100px; }
-            40% { background-position: 200px; }
-            100% { background-position: 200px; }
-        }
 
-        /* ===== PROFESSIONAL COLOR SCHEME ===== */
+        /* ===== DEFAULT COLOR SCHEME (SARKARI THEME) ===== */
         :root {
             --primary: #FF5722;        /* मुख्य नारंगी - Sarkari */
             --primary-dark: #E64A19;    /* गहरा नारंगी */
@@ -96,8 +91,126 @@
             --gradient-2: linear-gradient(135deg, #1A237E, #3949AB);
             --gradient-3: linear-gradient(135deg, #4CAF50, #8BC34A);
             --gradient-4: linear-gradient(135deg, #00BCD4, #4DD0E1);
+            --gradient-5: linear-gradient(135deg, #9C27B0, #BA68C8);
             --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             --box-shadow-hover: 0 10px 25px rgba(255,87,34,0.2);
+            --text-light: #ffffff;
+            --text-dark: #333333;
+        }
+
+        /* ===== COLOR CHANGER STYLES ===== */
+        .color-changer {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 9999;
+            animation: slideInRight 0.5s ease;
+        }
+        
+        .color-toggle {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            border: 2px solid var(--white);
+        }
+        
+        .color-toggle:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: var(--box-shadow-hover);
+        }
+        
+        .color-toggle span {
+            font-size: 1.5rem;
+        }
+        
+        .color-panel {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: var(--box-shadow-hover);
+            width: 250px;
+            display: none;
+            border: 2px solid var(--primary-light);
+        }
+        
+        .color-panel.show {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        .color-panel h4 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .color-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.15);
+            border-color: var(--dark);
+        }
+        
+        .color-option.active {
+            border-color: var(--dark);
+            box-shadow: 0 0 0 2px var(--white);
+        }
+        
+        .custom-color {
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .custom-color input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .reset-color {
+            background: var(--danger);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .reset-color:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
 
         /* ===== HEADER STYLES ===== */
@@ -110,6 +223,7 @@
             z-index: 1000;
             box-shadow: var(--box-shadow);
             animation: slideInDown 0.8s ease;
+            transition: background 0.3s ease;
         }
         
         @keyframes slideInDown {
@@ -125,6 +239,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
         
         .logo {
@@ -177,6 +292,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: background 0.3s ease;
         }
         
         .hero::before {
@@ -279,10 +395,94 @@
             transform: translateY(-3px);
         }
 
+        /* ===== SEARCH SECTION ===== */
+        .search-section {
+            padding: 3rem 0;
+            background: var(--white);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: background 0.3s ease;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+        
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,87,34,0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+        
+        .search-results-count {
+            text-align: center;
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: var(--light);
+            border-radius: 10px;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .no-results.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .no-results p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .clear-search {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .clear-search:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
         /* ===== STATS SECTION ===== */
         .stats {
             padding: 4rem 0;
             background: var(--white);
+            transition: background 0.3s ease;
         }
         
         .stats-grid {
@@ -322,6 +522,7 @@
         .tools-section {
             padding: 5rem 0;
             background: var(--light);
+            transition: background 0.3s ease;
         }
         
         .section-title {
@@ -491,6 +692,7 @@
         .features {
             padding: 5rem 0;
             background: var(--white);
+            transition: background 0.3s ease;
         }
         
         .features-grid {
@@ -530,6 +732,7 @@
             padding: 5rem 0;
             background: var(--gradient-2);
             color: var(--white);
+            transition: background 0.3s ease;
         }
         
         .how-to-use .section-title {
@@ -578,6 +781,7 @@
             background: var(--dark);
             color: var(--white);
             padding: 4rem 0 2rem;
+            transition: background 0.3s ease;
         }
         
         .footer-grid {
@@ -680,6 +884,17 @@
             .tools-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .search-box {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .color-changer {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+            }
         }
 
         /* ===== LOADING ANIMATION ===== */
@@ -718,12 +933,49 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* ===== SEARCH HIGHLIGHT ===== */
+        .highlight {
+            background-color: #fff3cd;
+            transition: background-color 0.3s ease;
+        }
     </style>
 </head>
 <body>
     <!-- Loading Animation -->
     <div class="loading">
         <div class="loader"></div>
+    </div>
+
+    <!-- Color Changer -->
+    <div class="color-changer">
+        <div class="color-toggle" onclick="toggleColorPanel()">
+            <span>🎨</span>
+        </div>
+        <div class="color-panel" id="colorPanel">
+            <h4>Choose Your Theme Color</h4>
+            <div class="color-options">
+                <div class="color-option active" style="background: #FF5722;" onclick="changeColor('#FF5722', '#E64A19', '#1A237E')" title="Sarkari Orange (Default)"></div>
+                <div class="color-option" style="background: #2196F3;" onclick="changeColor('#2196F3', '#1976D2', '#0D47A1')" title="Cool Blue"></div>
+                <div class="color-option" style="background: #4CAF50;" onclick="changeColor('#4CAF50', '#388E3C', '#1B5E20')" title="Fresh Green"></div>
+                <div class="color-option" style="background: #9C27B0;" onclick="changeColor('#9C27B0', '#7B1FA2', '#4A148C')" title="Royal Purple"></div>
+                <div class="color-option" style="background: #E91E63;" onclick="changeColor('#E91E63', '#C2185B', '#880E4F')" title="Pink Rose"></div>
+                <div class="color-option" style="background: #FF9800;" onclick="changeColor('#FF9800', '#F57C00', '#E65100')" title="Sunset Orange"></div>
+                <div class="color-option" style="background: #00BCD4;" onclick="changeColor('#00BCD4', '#0097A7', '#006064')" title="Sky Blue"></div>
+                <div class="color-option" style="background: #795548;" onclick="changeColor('#795548', '#5D4037', '#3E2723')" title="Brown Wood"></div>
+                <div class="color-option" style="background: #607D8B;" onclick="changeColor('#607D8B', '#546E7A', '#37474F')" title="Blue Grey"></div>
+                <div class="color-option" style="background: #8BC34A;" onclick="changeColor('#8BC34A', '#7CB342', '#33691E')" title="Light Green"></div>
+                <div class="color-option" style="background: #FFC107;" onclick="changeColor('#FFC107', '#FFB300', '#FF6F00')" title="Golden Yellow"></div>
+                <div class="color-option" style="background: #673AB7;" onclick="changeColor('#673AB7', '#512DA8', '#311B92')" title="Deep Purple"></div>
+            </div>
+            
+            <div class="custom-color">
+                <label>Custom Color:</label>
+                <input type="color" id="customColorPicker" onchange="applyCustomColor(this.value)">
+            </div>
+            
+            <button class="reset-color" onclick="resetToDefault()">Reset to Default</button>
+        </div>
     </div>
 
     <!-- Header -->
@@ -750,7 +1002,7 @@
                 <span class="csc-badge">⚡ CSC Activation Available ⚡</span>
                 <h1>Welcome to Smart CSC Tools</h1>
                 <p>India's Most Trusted Platform for Daily CSC Work<br>
-                <strong>– 20+ Free Sarkari Tools –</strong></p>
+                <strong>– 30+ Free Sarkari Tools –</strong></p>
                 <div>
                     <a href="#tools" class="btn btn-primary">Start Using Tools</a>
                     <a href="#all-tools" class="btn btn-secondary">View All Tools</a>
@@ -759,12 +1011,23 @@
         </div>
     </section>
 
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <input type="text" class="search-box" id="searchInput" placeholder="🔍 Search any tool... (e.g., Resume, PDF, Calculator, Aadhaar...)" autocomplete="off">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="search-results-count" id="searchResultsCount"></div>
+        </div>
+    </section>
+
     <!-- Stats Section -->
     <section class="stats">
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number">20+</div>
+                    <div class="stat-number">30+</div>
                     <div class="stat-label">Sarkari Tools</div>
                 </div>
                 <div class="stat-item">
@@ -789,20 +1052,29 @@
             <h2 class="section-title">Our <span>Tools Collection</span></h2>
             <p class="section-subtitle">CSC VLE & SERP 100% Free & Useful Smart Tools</p>
             
-            <!-- Category Buttons -->
+            <!-- Category Buttons (नई Image Category के साथ) -->
             <div class="categories">
                 <button class="category-btn active" onclick="filterTools('all')">All Tools</button>
                 <button class="category-btn" onclick="filterTools('document')">Document Tools</button>
                 <button class="category-btn" onclick="filterTools('converter')">Converters</button>
                 <button class="category-btn" onclick="filterTools('calculator')">Calculators</button>
                 <button class="category-btn" onclick="filterTools('utility')">Utilities</button>
+                <button class="category-btn" onclick="filterTools('image')">🖼️ Image Tools</button>
             </div>
 
-            <!-- Tools Grid - All 20+ Tools with Links -->
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults">
+                <p>😕 No tools found matching your search</p>
+                <button class="clear-search" onclick="clearSearch()">Clear Search</button>
+            </div>
+
+            <!-- Tools Grid - All 30+ Tools with Links -->
             <div class="tools-grid" id="toolsGrid">
                 
+                <!-- DOCUMENT TOOLS (10 tools) -->
+                
                 <!-- 1. Resume/CV Maker -->
-                <a href="tools/resume-maker.html" class="tool-card" data-category="document">
+                <a href="tools/resume-maker.html" class="tool-card" data-category="document" data-tool-name="Resume CV Maker Resume Maker CV Maker">
                     <span class="sarkari-badge">Sarkari</span>
                     <div class="tool-icon">📄</div>
                     <h3>Resume/CV Maker</h3>
@@ -813,31 +1085,8 @@
                     </div>
                 </a>
 
-                <!-- 2. Age Calculator -->
-                <a href="tools/age-calculator.html" class="tool-card" data-category="calculator">
-                    <span class="sarkari-badge">Sarkari</span>
-                    <div class="tool-icon">📅</div>
-                    <h3>Age Calculator</h3>
-                    <p>Calculate your exact age for exam eligibility. Find age in years, months, and days.</p>
-                    <div class="tool-footer">
-                        <span class="tool-category">Calculator</span>
-                        <span class="use-tool">Use Tool →</span>
-                    </div>
-                </a>
-
-                <!-- 3. Type Test -->
-                <a href="tools/type-test.html" class="tool-card" data-category="utility">
-                    <div class="tool-icon">⌨️</div>
-                    <h3>Type Test</h3>
-                    <p>Test your typing speed and accuracy. Hindi and English typing tests available.</p>
-                    <div class="tool-footer">
-                        <span class="tool-category">Utility</span>
-                        <span class="use-tool">Use Tool →</span>
-                    </div>
-                </a>
-
-                <!-- 4. PDF Merger -->
-                <a href="tools/pdf-merger.html" class="tool-card" data-category="document">
+                <!-- 2. PDF Merger -->
+                <a href="tools/pdf-merger.html" class="tool-card" data-category="document" data-tool-name="PDF Merger Merge PDF Combine PDF">
                     <div class="tool-icon">📎</div>
                     <h3>PDF Merger</h3>
                     <p>Combine multiple PDF files into a single document. Free and fast.</p>
@@ -847,8 +1096,8 @@
                     </div>
                 </a>
 
-                <!-- 5. PDF Splitter -->
-                <a href="tools/pdf-splitter.html" class="tool-card" data-category="document">
+                <!-- 3. PDF Splitter -->
+                <a href="tools/pdf-splitter.html" class="tool-card" data-category="document" data-tool-name="PDF Splitter Split PDF">
                     <div class="tool-icon">✂️</div>
                     <h3>PDF Splitter</h3>
                     <p>Split PDF files into separate pages or sections. Extract specific pages.</p>
@@ -858,31 +1107,8 @@
                     </div>
                 </a>
 
-                <!-- 6. Image Resizer -->
-                <a href="tools/image-resizer.html" class="tool-card" data-category="utility">
-                    <span class="sarkari-badge">Sarkari</span>
-                    <div class="tool-icon">🖼️</div>
-                    <h3>Image Resizer</h3>
-                    <p>Resize photos to meet government application requirements. Passport size, etc.</p>
-                    <div class="tool-footer">
-                        <span class="tool-category">Utility</span>
-                        <span class="use-tool">Use Tool →</span>
-                    </div>
-                </a>
-
-                <!-- 7. Percentage Calculator -->
-                <a href="tools/percentage-calculator.html" class="tool-card" data-category="calculator">
-                    <div class="tool-icon">%</div>
-                    <h3>Percentage Calculator</h3>
-                    <p>Calculate percentages for marks, scores, and discounts. Easy to use.</p>
-                    <div class="tool-footer">
-                        <span class="tool-category">Calculator</span>
-                        <span class="use-tool">Use Tool →</span>
-                    </div>
-                </a>
-
-                <!-- 8. Cover Letter Generator -->
-                <a href="tools/cover-letter.html" class="tool-card" data-category="document">
+                <!-- 4. Cover Letter Generator -->
+                <a href="tools/cover-letter.html" class="tool-card" data-category="document" data-tool-name="Cover Letter Generator">
                     <div class="tool-icon">📝</div>
                     <h3>Cover Letter Generator</h3>
                     <p>Create compelling cover letters for job applications. Professional templates.</p>
@@ -892,8 +1118,8 @@
                     </div>
                 </a>
 
-                <!-- 9. Admit Card Manager -->
-                <a href="tools/admit-card.html" class="tool-card" data-category="document">
+                <!-- 5. Admit Card Manager -->
+                <a href="tools/admit-card.html" class="tool-card" data-category="document" data-tool-name="Admit Card Manager Admit Card">
                     <span class="sarkari-badge">Sarkari</span>
                     <div class="tool-icon">🎫</div>
                     <h3>Admit Card Manager</h3>
@@ -904,65 +1130,8 @@
                     </div>
                 </a>
 
-                <!-- 10. GPA Calculator -->
-                <a href="tools/gpa-calculator.html" class="tool-card" data-category="calculator">
-                    <div class="tool-icon">📊</div>
-                    <h3>GPA Calculator</h3>
-                    <p>Calculate GPA and percentage easily. CGPA to percentage converter.</p>
-                    <div class="tool-footer">
-                        <span class="tool-category">Calculator</span>
-                        <span class="use-tool">Use Tool →</span>
-                    </div>
-                </a>
-
-                <!-- 11. Word to PDF Converter -->
-                <a href="tools/word-to-pdf.html" class="tool-card" data-category="converter">
-                    <span class="sarkari-badge">Sarkari</span>
-                    <div class="tool-icon">📄➡️📑</div>
-                    <h3>Word to PDF Converter</h3>
-                    <p>Convert Word documents to PDF format. High quality conversion.</p>
-                    <div class="tool-footer">
-                        <span class="tool-category">Converter</span>
-                        <span class="use-tool">Use Tool →</span>
-                    </div>
-                </a>
-
-                <!-- 12. Photo Background Remover -->
-                <a href="tools/background-remover.html" class="tool-card" data-category="utility">
-                    <div class="tool-icon">✂️🖼️</div>
-                    <h3>Photo Background Remover</h3>
-                    <p>Remove backgrounds from photos for documents. Passport photos ready.</p>
-                    <div class="tool-footer">
-                        <span class="tool-category">Utility</span>
-                        <span class="use-tool">Use Tool →</span>
-                    </div>
-                </a>
-
-                <!-- 13. QR Code Generator -->
-                <a href="tools/qr-generator.html" class="tool-card" data-category="utility">
-                    <div class="tool-icon">📱</div>
-                    <h3>QR Code Generator</h3>
-                    <p>Generate QR codes for documents, links, and payments. Customizable.</p>
-                    <div class="tool-footer">
-                        <span class="tool-category">Utility</span>
-                        <span class="use-tool">Use Tool →</span>
-                    </div>
-                </a>
-
-                <!-- 14. Thumb Impression Resizer -->
-                <a href="tools/thumb-impression.html" class="tool-card" data-category="utility">
-                    <span class="sarkari-badge">Sarkari</span>
-                    <div class="tool-icon">👍</div>
-                    <h3>Thumb Impression Resizer</h3>
-                    <p>Resize thumb impressions for government documents. Correct size and format.</p>
-                    <div class="tool-footer">
-                        <span class="tool-category">Utility</span>
-                        <span class="use-tool">Use Tool →</span>
-                    </div>
-                </a>
-
-                <!-- 15. Aadhaar Card Generator -->
-                <a href="tools/aadhaar-generator.html" class="tool-card" data-category="document">
+                <!-- 6. Aadhaar Card Generator -->
+                <a href="tools/aadhaar-generator.html" class="tool-card" data-category="document" data-tool-name="Aadhaar Card Generator Aadhar">
                     <span class="sarkari-badge">Sarkari</span>
                     <div class="tool-icon">🆔</div>
                     <h3>Aadhaar Card Generator</h3>
@@ -973,8 +1142,8 @@
                     </div>
                 </a>
 
-                <!-- 16. PAN Card Generator -->
-                <a href="tools/pan-generator.html" class="tool-card" data-category="document">
+                <!-- 7. PAN Card Generator -->
+                <a href="tools/pan-generator.html" class="tool-card" data-category="document" data-tool-name="PAN Card Generator Pan">
                     <span class="sarkari-badge">Sarkari</span>
                     <div class="tool-icon">💳</div>
                     <h3>PAN Card Generator</h3>
@@ -985,8 +1154,8 @@
                     </div>
                 </a>
 
-                <!-- 17. Voter ID Generator -->
-                <a href="tools/voter-id.html" class="tool-card" data-category="document">
+                <!-- 8. Voter ID Generator -->
+                <a href="tools/voter-id.html" class="tool-card" data-category="document" data-tool-name="Voter ID Generator Voter ID">
                     <span class="sarkari-badge">Sarkari</span>
                     <div class="tool-icon">🗳️</div>
                     <h3>Voter ID Generator</h3>
@@ -997,8 +1166,8 @@
                     </div>
                 </a>
 
-                <!-- 18. Ration Card Generator -->
-                <a href="tools/ration-card.html" class="tool-card" data-category="document">
+                <!-- 9. Ration Card Generator -->
+                <a href="tools/ration-card.html" class="tool-card" data-category="document" data-tool-name="Ration Card Generator Ration">
                     <span class="sarkari-badge">Sarkari</span>
                     <div class="tool-icon">🛒</div>
                     <h3>Ration Card Generator</h3>
@@ -1009,8 +1178,8 @@
                     </div>
                 </a>
 
-                <!-- 19. Income Certificate -->
-                <a href="tools/income-certificate.html" class="tool-card" data-category="document">
+                <!-- 10. Income Certificate -->
+                <a href="tools/income-certificate.html" class="tool-card" data-category="document" data-tool-name="Income Certificate">
                     <span class="sarkari-badge">Sarkari</span>
                     <div class="tool-icon">💰</div>
                     <h3>Income Certificate</h3>
@@ -1021,8 +1190,8 @@
                     </div>
                 </a>
 
-                <!-- 20. Caste Certificate -->
-                <a href="tools/caste-certificate.html" class="tool-card" data-category="document">
+                <!-- 11. Caste Certificate -->
+                <a href="tools/caste-certificate.html" class="tool-card" data-category="document" data-tool-name="Caste Certificate">
                     <span class="sarkari-badge">Sarkari</span>
                     <div class="tool-icon">📋</div>
                     <h3>Caste Certificate</h3>
@@ -1033,8 +1202,8 @@
                     </div>
                 </a>
 
-                <!-- 21. Domicile Certificate -->
-                <a href="tools/domicile.html" class="tool-card" data-category="document">
+                <!-- 12. Domicile Certificate -->
+                <a href="tools/domicile.html" class="tool-card" data-category="document" data-tool-name="Domicile Certificate">
                     <span class="sarkari-badge">Sarkari</span>
                     <div class="tool-icon">🏠</div>
                     <h3>Domicile Certificate</h3>
@@ -1045,30 +1214,44 @@
                     </div>
                 </a>
 
-                <!-- 22. PDF to Word Converter -->
-                <a href="tools/pdf-to-word.html" class="tool-card" data-category="converter">
-                    <div class="tool-icon">📑➡️📄</div>
-                    <h3>PDF to Word Converter</h3>
-                    <p>Convert PDF files back to editable Word documents.</p>
+                <!-- CALCULATORS (6 tools) -->
+                
+                <!-- 13. Age Calculator -->
+                <a href="tools/age-calculator.html" class="tool-card" data-category="calculator" data-tool-name="Age Calculator Age Calculate">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">📅</div>
+                    <h3>Age Calculator</h3>
+                    <p>Calculate your exact age for exam eligibility. Find age in years, months, and days.</p>
                     <div class="tool-footer">
-                        <span class="tool-category">Converter</span>
+                        <span class="tool-category">Calculator</span>
                         <span class="use-tool">Use Tool →</span>
                     </div>
                 </a>
 
-                <!-- 23. JPG to PDF Converter -->
-                <a href="tools/jpg-to-pdf.html" class="tool-card" data-category="converter">
-                    <div class="tool-icon">🖼️➡️📑</div>
-                    <h3>JPG to PDF Converter</h3>
-                    <p>Convert images to PDF format. Multiple images to single PDF.</p>
+                <!-- 14. Percentage Calculator -->
+                <a href="tools/percentage-calculator.html" class="tool-card" data-category="calculator" data-tool-name="Percentage Calculator Percent">
+                    <div class="tool-icon">%</div>
+                    <h3>Percentage Calculator</h3>
+                    <p>Calculate percentages for marks, scores, and discounts. Easy to use.</p>
                     <div class="tool-footer">
-                        <span class="tool-category">Converter</span>
+                        <span class="tool-category">Calculator</span>
                         <span class="use-tool">Use Tool →</span>
                     </div>
                 </a>
 
-                <!-- 24. Loan Calculator -->
-                <a href="tools/loan-calculator.html" class="tool-card" data-category="calculator">
+                <!-- 15. GPA Calculator -->
+                <a href="tools/gpa-calculator.html" class="tool-card" data-category="calculator" data-tool-name="GPA Calculator CGPA Calculator">
+                    <div class="tool-icon">📊</div>
+                    <h3>GPA Calculator</h3>
+                    <p>Calculate GPA and percentage easily. CGPA to percentage converter.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Calculator</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 16. Loan Calculator -->
+                <a href="tools/loan-calculator.html" class="tool-card" data-category="calculator" data-tool-name="Loan Calculator EMI">
                     <div class="tool-icon">🏦</div>
                     <h3>Loan Calculator</h3>
                     <p>Calculate EMI, interest, and loan tenure for various loans.</p>
@@ -1078,13 +1261,178 @@
                     </div>
                 </a>
 
-                <!-- 25. SIP Calculator -->
-                <a href="tools/sip-calculator.html" class="tool-card" data-category="calculator">
+                <!-- 17. SIP Calculator -->
+                <a href="tools/sip-calculator.html" class="tool-card" data-category="calculator" data-tool-name="SIP Calculator Investment">
                     <div class="tool-icon">📈</div>
                     <h3>SIP Calculator</h3>
                     <p>Calculate SIP returns and future value of investments.</p>
                     <div class="tool-footer">
                         <span class="tool-category">Calculator</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 18. EMI Calculator -->
+                <a href="tools/emi-calculator.html" class="tool-card" data-category="calculator" data-tool-name="EMI Calculator">
+                    <div class="tool-icon">💰</div>
+                    <h3>EMI Calculator</h3>
+                    <p>Calculate monthly EMI for home, car, and personal loans.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Calculator</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- CONVERTERS (4 tools) -->
+                
+                <!-- 19. Word to PDF Converter -->
+                <a href="tools/word-to-pdf.html" class="tool-card" data-category="converter" data-tool-name="Word to PDF Converter Doc to PDF">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">📄➡️📑</div>
+                    <h3>Word to PDF Converter</h3>
+                    <p>Convert Word documents to PDF format. High quality conversion.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Converter</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 20. PDF to Word Converter -->
+                <a href="tools/pdf-to-word.html" class="tool-card" data-category="converter" data-tool-name="PDF to Word Converter">
+                    <div class="tool-icon">📑➡️📄</div>
+                    <h3>PDF to Word Converter</h3>
+                    <p>Convert PDF files back to editable Word documents.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Converter</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 21. JPG to PDF Converter -->
+                <a href="tools/jpg-to-pdf.html" class="tool-card" data-category="converter" data-tool-name="JPG to PDF Converter Image to PDF">
+                    <div class="tool-icon">🖼️➡️📑</div>
+                    <h3>JPG to PDF Converter</h3>
+                    <p>Convert images to PDF format. Multiple images to single PDF.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Converter</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 22. Excel to PDF Converter -->
+                <a href="tools/excel-to-pdf.html" class="tool-card" data-category="converter" data-tool-name="Excel to PDF Converter XLS to PDF">
+                    <div class="tool-icon">📊➡️📑</div>
+                    <h3>Excel to PDF Converter</h3>
+                    <p>Convert Excel sheets to PDF format. Perfect for reports.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Converter</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- UTILITIES (4 tools) -->
+                
+                <!-- 23. Type Test -->
+                <a href="tools/type-test.html" class="tool-card" data-category="utility" data-tool-name="Type Test Typing Test">
+                    <div class="tool-icon">⌨️</div>
+                    <h3>Type Test</h3>
+                    <p>Test your typing speed and accuracy. Hindi and English typing tests available.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Utility</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 24. QR Code Generator -->
+                <a href="tools/qr-generator.html" class="tool-card" data-category="utility" data-tool-name="QR Code Generator QR">
+                    <div class="tool-icon">📱</div>
+                    <h3>QR Code Generator</h3>
+                    <p>Generate QR codes for documents, links, and payments. Customizable.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Utility</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 25. Thumb Impression Resizer -->
+                <a href="tools/thumb-impression.html" class="tool-card" data-category="utility" data-tool-name="Thumb Impression Resizer Thumb">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">👍</div>
+                    <h3>Thumb Impression Resizer</h3>
+                    <p>Resize thumb impressions for government documents. Correct size and format.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Utility</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 26. Signature Maker -->
+                <a href="tools/signature-maker.html" class="tool-card" data-category="utility" data-tool-name="Signature Maker Digital Signature">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">✍️</div>
+                    <h3>Signature Maker</h3>
+                    <p>Create digital signatures for documents. Multiple styles available.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Utility</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- IMAGE TOOLS (4 tools) - नई Category -->
+                
+                <!-- 27. Image Resizer -->
+                <a href="tools/image-resizer.html" class="tool-card" data-category="image" data-tool-name="Image Resizer Photo Resizer">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">🖼️</div>
+                    <h3>Image Resizer</h3>
+                    <p>Resize photos to meet government application requirements. Passport size, etc.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Image</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 28. Photo Background Remover -->
+                <a href="tools/background-remover.html" class="tool-card" data-category="image" data-tool-name="Background Remover Photo Background Remove">
+                    <div class="tool-icon">✂️🖼️</div>
+                    <h3>Photo Background Remover</h3>
+                    <p>Remove backgrounds from photos for documents. Passport photos ready.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Image</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 29. Image Compressor -->
+                <a href="tools/image-compressor.html" class="tool-card" data-category="image" data-tool-name="Image Compressor Photo Compress">
+                    <div class="tool-icon">🗜️</div>
+                    <h3>Image Compressor</h3>
+                    <p>Compress images to reduce file size without losing quality.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Image</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 30. Image to JPG Converter -->
+                <a href="tools/image-to-jpg.html" class="tool-card" data-category="image" data-tool-name="Image to JPG Converter">
+                    <div class="tool-icon">🔄</div>
+                    <h3>Image to JPG Converter</h3>
+                    <p>Convert any image format to JPG. PNG, WEBP, BMP to JPG.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Image</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 31. Passport Photo Maker -->
+                <a href="tools/passport-photo.html" class="tool-card" data-category="image" data-tool-name="Passport Photo Maker">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">📸</div>
+                    <h3>Passport Photo Maker</h3>
+                    <p>Create passport size photos with correct dimensions for government applications.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Image</span>
                         <span class="use-tool">Use Tool →</span>
                     </div>
                 </a>
@@ -1113,9 +1461,9 @@
                     <p>All tools are 100% free for CSC operators</p>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">📱</div>
-                    <h3>Mobile Friendly</h3>
-                    <p>Works perfectly on all devices - mobile, tablet, desktop</p>
+                    <div class="feature-icon">🎨</div>
+                    <h3>Customizable Theme</h3>
+                    <p>Change website colors as per your preference</p>
                 </div>
             </div>
         </div>
@@ -1129,7 +1477,7 @@
                 <div class="step-item">
                     <div class="step-number">1</div>
                     <h3>Choose Tool</h3>
-                    <p>Select from 20+ Sarkari tools</p>
+                    <p>Select from 30+ Sarkari tools</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">2</div>
@@ -1156,7 +1504,7 @@
             <div class="footer-grid">
                 <div class="footer-section">
                     <h3>About Us</h3>
-                    <p>Smart CSC Tools is India's most trusted platform for CSC operators. We provide 20+ free Sarkari tools for daily use.</p>
+                    <p>Smart CSC Tools is India's most trusted platform for CSC operators. We provide 30+ free Sarkari tools for daily use.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
@@ -1174,6 +1522,7 @@
                         <li><a href="#tools">Converters</a></li>
                         <li><a href="#tools">Calculators</a></li>
                         <li><a href="#tools">Utilities</a></li>
+                        <li><a href="#tools">🖼️ Image Tools</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -1192,20 +1541,178 @@
         </div>
     </section>
 
-    <!-- JavaScript for Category Filtering -->
+    <!-- JavaScript for All Features -->
     <script>
-        // Category Filter Function
+        // ===== COLOR CHANGER FUNCTIONS =====
+        
+        // Toggle color panel
+        function toggleColorPanel() {
+            const panel = document.getElementById('colorPanel');
+            panel.classList.toggle('show');
+        }
+        
+        // Change color function
+        function changeColor(primary, primaryDark, secondary) {
+            document.documentElement.style.setProperty('--primary', primary);
+            document.documentElement.style.setProperty('--primary-dark', primaryDark);
+            document.documentElement.style.setProperty('--secondary', secondary);
+            
+            // Update gradients
+            document.documentElement.style.setProperty('--gradient-1', `linear-gradient(135deg, ${primary}, ${primaryDark})`);
+            document.documentElement.style.setProperty('--gradient-2', `linear-gradient(135deg, ${secondary}, #3949AB)`);
+            
+            // Update active state in color options
+            document.querySelectorAll('.color-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Save to localStorage
+            localStorage.setItem('themeColor', primary);
+            localStorage.setItem('themeColorDark', primaryDark);
+            localStorage.setItem('themeSecondary', secondary);
+        }
+        
+        // Apply custom color from color picker
+        function applyCustomColor(color) {
+            document.documentElement.style.setProperty('--primary', color);
+            
+            // Darken the color for primary-dark
+            const darkenColor = adjustBrightness(color, -20);
+            document.documentElement.style.setProperty('--primary-dark', darkenColor);
+            
+            // Update gradient
+            document.documentElement.style.setProperty('--gradient-1', `linear-gradient(135deg, ${color}, ${darkenColor})`);
+            
+            // Remove active class from all options
+            document.querySelectorAll('.color-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('themeColor', color);
+            localStorage.setItem('themeColorDark', darkenColor);
+        }
+        
+        // Helper function to adjust color brightness
+        function adjustBrightness(hex, percent) {
+            // Simple brightness adjustment (you can enhance this)
+            return hex; // For now, return original
+        }
+        
+        // Reset to default colors
+        function resetToDefault() {
+            document.documentElement.style.setProperty('--primary', '#FF5722');
+            document.documentElement.style.setProperty('--primary-dark', '#E64A19');
+            document.documentElement.style.setProperty('--secondary', '#1A237E');
+            document.documentElement.style.setProperty('--gradient-1', 'linear-gradient(135deg, #FF5722, #FF8A65)');
+            document.documentElement.style.setProperty('--gradient-2', 'linear-gradient(135deg, #1A237E, #3949AB)');
+            
+            // Update active state
+            document.querySelectorAll('.color-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            document.querySelector('.color-option').classList.add('active');
+            
+            // Clear localStorage
+            localStorage.removeItem('themeColor');
+            localStorage.removeItem('themeColorDark');
+            localStorage.removeItem('themeSecondary');
+        }
+        
+        // Load saved theme on page load
+        window.addEventListener('load', function() {
+            const savedColor = localStorage.getItem('themeColor');
+            if (savedColor) {
+                document.documentElement.style.setProperty('--primary', savedColor);
+                const savedColorDark = localStorage.getItem('themeColorDark');
+                if (savedColorDark) {
+                    document.documentElement.style.setProperty('--primary-dark', savedColorDark);
+                }
+                const savedSecondary = localStorage.getItem('themeSecondary');
+                if (savedSecondary) {
+                    document.documentElement.style.setProperty('--secondary', savedSecondary);
+                }
+            }
+            
+            // Hide loading animation
+            setTimeout(function() {
+                document.querySelector('.loading').style.display = 'none';
+            }, 1500);
+        });
+        
+        // ===== SEARCH FUNCTIONALITY =====
+        const searchInput = document.getElementById('searchInput');
+        const toolCards = document.querySelectorAll('.tool-card');
+        const noResults = document.getElementById('noResults');
+        const searchResultsCount = document.getElementById('searchResultsCount');
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            let visibleCount = 0;
+            
+            toolCards.forEach(card => {
+                const toolName = card.getAttribute('data-tool-name').toLowerCase();
+                const toolTitle = card.querySelector('h3').textContent.toLowerCase();
+                const toolDesc = card.querySelector('p').textContent.toLowerCase();
+                
+                if (toolName.includes(searchTerm) || toolTitle.includes(searchTerm) || toolDesc.includes(searchTerm) || searchTerm === '') {
+                    card.style.display = 'block';
+                    visibleCount++;
+                    
+                    if (searchTerm !== '') {
+                        card.classList.add('highlight');
+                        setTimeout(() => {
+                            card.classList.remove('highlight');
+                        }, 2000);
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (visibleCount === 0 && searchTerm !== '') {
+                noResults.classList.add('show');
+            } else {
+                noResults.classList.remove('show');
+            }
+            
+            if (searchTerm !== '') {
+                searchResultsCount.textContent = `${visibleCount} tools found`;
+            } else {
+                searchResultsCount.textContent = '';
+            }
+        });
+        
+        // Clear search function
+        function clearSearch() {
+            searchInput.value = '';
+            toolCards.forEach(card => {
+                card.style.display = 'block';
+            });
+            noResults.classList.remove('show');
+            searchResultsCount.textContent = '';
+            
+            const activeBtn = document.querySelector('.category-btn.active');
+            if (activeBtn && activeBtn.textContent !== 'All Tools') {
+                filterTools('all');
+            }
+        }
+        
+        // ===== CATEGORY FILTER FUNCTION =====
         function filterTools(category) {
             const tools = document.querySelectorAll('.tool-card');
             const buttons = document.querySelectorAll('.category-btn');
             
-            // Update active button
             buttons.forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
             
-            // Filter tools
+            searchInput.value = '';
+            searchResultsCount.textContent = '';
+            noResults.classList.remove('show');
+            
             tools.forEach(tool => {
                 if(category === 'all') {
                     tool.style.display = 'block';
@@ -1219,14 +1726,7 @@
             });
         }
         
-        // Remove loading animation
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.querySelector('.loading').style.display = 'none';
-            }, 1500);
-        });
-        
-        // Smooth scroll for anchor links
+        // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1238,6 +1738,24 @@
                     });
                 }
             });
+        });
+        
+        // ===== KEYBOARD SHORTCUT =====
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey && e.key === 'k') || e.key === '/') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+        
+        // ===== CLOSE COLOR PANEL WHEN CLICKING OUTSIDE =====
+        document.addEventListener('click', function(e) {
+            const panel = document.getElementById('colorPanel');
+            const toggle = document.querySelector('.color-toggle');
+            
+            if (!panel.contains(e.target) && !toggle.contains(e.target)) {
+                panel.classList.remove('show');
+            }
         });
     </script>
 </body>
