@@ -1,690 +1,1244 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Tools Wonder • Complete tokit</title>
-  <!-- Font Awesome 6 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart CSC Tools - India's Most Trusted CSC Platform</title>
+    <style>
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
 
-    body {
-      background: #f5f9ff;
-      color: #0b1f33;
-      line-height: 1.5;
-    }
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes shine {
+            0% { background-position: -100px; }
+            40% { background-position: 200px; }
+            100% { background-position: 200px; }
+        }
 
-    :root {
-      --blue-deep: #0a3b5b;
-      --blue-primary: #1e6bb8;
-      --blue-light: #d9ebff;
-      --blue-soft-bg: #e4f0fd;
-      --card-shadow: 0 12px 28px -10px rgba(0, 40, 80, 0.15);
-      --hover-lift: translateY(-6px);
-    }
+        /* ===== PROFESSIONAL COLOR SCHEME ===== */
+        :root {
+            --primary: #FF5722;        /* मुख्य नारंगी - Sarkari */
+            --primary-dark: #E64A19;    /* गहरा नारंगी */
+            --primary-light: #FF8A65;   /* हल्का नारंगी */
+            --secondary: #1A237E;       /* गहरा नीला - Government */
+            --secondary-light: #283593;  /* नीला */
+            --success: #4CAF50;          /* हरा - Success */
+            --info: #00BCD4;              /* आसमानी - Info */
+            --warning: #FFC107;            /* पीला - Warning */
+            --danger: #F44336;             /* लाल - Danger */
+            --dark: #263238;                /* गहरा स्लेट */
+            --light: #F5F5F6;                /* हल्का ग्रे */
+            --white: #FFFFFF;
+            --gradient-1: linear-gradient(135deg, #FF5722, #FF8A65);
+            --gradient-2: linear-gradient(135deg, #1A237E, #3949AB);
+            --gradient-3: linear-gradient(135deg, #4CAF50, #8BC34A);
+            --gradient-4: linear-gradient(135deg, #00BCD4, #4DD0E1);
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --box-shadow-hover: 0 10px 25px rgba(255,87,34,0.2);
+        }
 
-    .container {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+        /* ===== HEADER STYLES ===== */
+        header {
+            background: var(--gradient-2);
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+            animation: slideInDown 0.8s ease;
+        }
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo a {
+            color: var(--white);
+            text-decoration: none;
+            background: linear-gradient(135deg, #fff, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-light);
+        }
 
-    /* ----- header ----- */
-    .top-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 0;
-      border-bottom: 1px solid rgba(0,60,120,0.1);
-    }
-    .logo h1 {
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #07263b;
-    }
-    .logo span {
-      color: var(--blue-primary);
-      font-weight: 650;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2.2rem;
-      font-weight: 550;
-      color: #1e405e;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: inherit;
-    }
-    .nav-links a:hover { color: var(--blue-primary); }
-    .email-badge {
-      background: white;
-      border-radius: 40px;
-      padding: 8px 18px;
-      box-shadow: 0 4px 12px rgba(0,60,130,0.08);
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #0a3b5b;
-      border: 1px solid var(--blue-light);
-    }
-    .email-badge i { color: var(--blue-primary); }
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+            background-size: 3rem 3rem;
+            animation: move 20s linear infinite;
+        }
+        
+        @keyframes move {
+            0% { background-position: 0 0; }
+            100% { background-position: 3rem 3rem; }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .csc-badge {
+            display: inline-block;
+            background: var(--gradient-3);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            margin: 0 0.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 0;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow-hover);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
 
-    /* ----- hero ----- */
-    .hero {
-      text-align: center;
-      padding: 48px 0 32px;
-    }
-    .hero h2 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: #0b2840;
-      max-width: 800px;
-      margin: 0 auto 12px;
-    }
-    .hero .highlight {
-      color: var(--blue-primary);
-    }
-    .hero p {
-      font-size: 1.3rem;
-      color: #2d4b6e;
-      margin-bottom: 30px;
-    }
-    .hero-btns {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn-primary {
-      background: var(--blue-primary);
-      color: white;
-      font-weight: 600;
-      padding: 14px 40px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 1.1rem;
-      box-shadow: 0 8px 22px rgba(30,107,184,0.3);
-      transition: 0.2s;
-    }
-    .btn-primary:hover {
-      background: #0f4d8a;
-      transform: scale(1.02);
-    }
-    .btn-outline {
-      background: white;
-      border: 2px solid var(--blue-primary);
-      color: var(--blue-primary);
-      font-weight: 600;
-      padding: 12px 36px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 1.1rem;
-    }
-    .btn-outline:hover {
-      background: var(--blue-light);
-    }
+        /* ===== STATS SECTION ===== */
+        .stats {
+            padding: 4rem 0;
+            background: var(--white);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: var(--light);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--box-shadow-hover);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .stat-label {
+            color: var(--dark);
+            font-weight: 500;
+        }
 
-    /* ----- stats ----- */
-    .stats-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 48px;
-      margin: 48px 0 40px;
-    }
-    .stat-item {
-      text-align: center;
-    }
-    .stat-number {
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: var(--blue-deep);
-      line-height: 1.2;
-    }
-    .stat-label {
-      color: #365f7e;
-      font-weight: 500;
-    }
+        /* ===== TOOLS SECTION ===== */
+        .tools-section {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .section-title span {
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title span::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Category Buttons */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .category-btn {
+            padding: 0.8rem 1.8rem;
+            border: none;
+            background: var(--white);
+            color: var(--dark);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .category-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow-hover);
+            border-color: var(--primary);
+        }
+        
+        .category-btn.active {
+            background: var(--gradient-1);
+            color: var(--white);
+            animation: pulse 2s infinite;
+        }
+        
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .tool-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--dark);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,87,34,0.1);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .tool-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--box-shadow-hover);
+            border-color: var(--primary);
+        }
+        
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tool-card h3 {
+            margin-bottom: 0.8rem;
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+        
+        .tool-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .sarkari-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient-1);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: pulse 2s infinite;
+        }
+        
+        .tool-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .tool-category {
+            background: var(--light);
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+        
+        .use-tool {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
 
-    /* ----- search bar ----- */
-    .search-section {
-      margin: 30px 0 40px;
-    }
-    .search-wrapper {
-      position: relative;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .search-icon {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #7a9bc2;
-      font-size: 1.2rem;
-    }
-    #searchInput {
-      width: 100%;
-      padding: 16px 24px 16px 58px;
-      font-size: 1.1rem;
-      border: 2px solid #c7dfff;
-      border-radius: 60px;
-      outline: none;
-      background: white;
-      box-shadow: 0 4px 16px rgba(0,60,130,0.08);
-      transition: 0.2s;
-    }
-    #searchInput:focus {
-      border-color: var(--blue-primary);
-      box-shadow: 0 6px 20px rgba(30,107,184,0.15);
-    }
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            padding: 5rem 0;
+            background: var(--white);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: var(--light);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--box-shadow-hover);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .feature-item h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
 
-    /* ----- category tabs (clickable) ----- */
-    .cat-tabs {
-      background: white;
-      border-radius: 60px;
-      padding: 10px 20px;
-      display: inline-flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px 28px;
-      margin: 20px 0 20px;
-      box-shadow: var(--card-shadow);
-    }
-    .cat-tab {
-      font-weight: 600;
-      color: #1d4663;
-      cursor: pointer;
-      padding: 6px 0;
-      border-bottom: 3px solid transparent;
-      transition: all 0.2s;
-    }
-    .cat-tab:hover { color: var(--blue-primary); }
-    .cat-tab.active {
-      color: var(--blue-primary);
-      border-bottom-color: var(--blue-primary);
-    }
+        /* ===== HOW TO USE SECTION ===== */
+        .how-to-use {
+            padding: 5rem 0;
+            background: var(--gradient-2);
+            color: var(--white);
+        }
+        
+        .how-to-use .section-title {
+            color: var(--white);
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .step-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .step-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+            font-size: 1.3rem;
+            animation: pulse 2s infinite;
+        }
 
-    /* ----- side categories + main grid ----- */
-    .collection-area {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      margin: 20px 0 40px;
-    }
-    .categories-side {
-      flex: 0 0 200px;
-    }
-    .categories-side h4 {
-      font-size: 1.3rem;
-      margin-bottom: 16px;
-      color: #07263b;
-    }
-    .side-cat-list {
-      list-style: none;
-    }
-    .side-cat-list li {
-      padding: 10px 0 10px 20px;
-      margin-bottom: 4px;
-      font-weight: 500;
-      border-left: 4px solid transparent;
-      color: #1e4c73;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .side-cat-list li:hover {
-      background: var(--blue-light);
-      border-radius: 0 20px 20px 0;
-    }
-    .side-cat-list li.active {
-      border-left-color: var(--blue-primary);
-      background: var(--blue-light);
-      border-radius: 0 20px 20px 0;
-      color: #0a3b5b;
-      font-weight: 600;
-    }
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-section p {
+            color: #aaa;
+            line-height: 1.8;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-section ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-info i {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #aaa;
+        }
 
-    /* ----- TOOL CARD (exactly as requested) ----- */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 28px;
-    }
-    .tool-card {
-      background: white;
-      border-radius: 24px;
-      padding: 28px 20px 24px;
-      box-shadow: 0 10px 25px -8px rgba(0, 40, 80, 0.15);
-      transition: all 0.3s ease;
-      text-align: center;
-      border: 1px solid #e6f0fa;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .tool-card:hover {
-      transform: var(--hover-lift);
-      box-shadow: 0 20px 30px -10px rgba(30, 107, 184, 0.25);
-      border-color: #b8d9ff;
-    }
-    .tool-icon-container {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(145deg, #e6f0fd, #d4e6ff);
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
-      box-shadow: inset 0 2px 5px rgba(255,255,255,0.8), 0 5px 12px rgba(0,70,150,0.15);
-    }
-    .tool-icon-container i {
-      font-size: 2.5rem;
-      color: var(--blue-primary);
-    }
-    .tool-card h3 {
-      font-size: 1.3rem;
-      font-weight: 650;
-      color: #0b2840;
-      margin-bottom: 10px;
-    }
-    .tool-card p {
-      color: #4d6a8a;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-bottom: 22px;
-      flex-grow: 1;
-      padding: 0 8px;
-    }
-    .tool-button {
-      display: inline-block;
-      background: var(--blue-primary);
-      color: white;
-      font-weight: 600;
-      padding: 12px 28px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 0.95rem;
-      box-shadow: 0 5px 15px rgba(30, 107, 184, 0.3);
-      transition: all 0.2s;
-      border: none;
-      width: auto;
-      min-width: 130px;
-      letter-spacing: 0.3px;
-    }
-    .tool-button:hover {
-      background: #0f4d8a;
-      transform: scale(1.03);
-      box-shadow: 0 8px 20px rgba(30, 107, 184, 0.4);
-    }
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            .stats-grid,
+            .features-grid,
+            .steps-grid,
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .stats-grid,
+            .features-grid,
+            .steps-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
-    /* hidden for filtering */
-    .tool-card.hidden {
-      display: none;
-    }
-
-    /* process & why sections (keep clean) */
-    .process-section {
-      background: white;
-      border-radius: 60px;
-      padding: 48px 36px;
-      margin: 60px 0 30px;
-    }
-    .process-header {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 40px;
-    }
-    .process-steps {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px 70px;
-    }
-    .step-item {
-      text-align: center;
-      max-width: 180px;
-    }
-    .step-num {
-      background: var(--blue-deep);
-      color: white;
-      width: 48px;
-      height: 48px;
-      font-size: 1.6rem;
-      font-weight: 700;
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 14px;
-    }
-    .why-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      margin: 50px 0;
-      background: #e4f0fd;
-      border-radius: 60px;
-      padding: 44px 40px;
-    }
-    .why-left { flex: 1 1 300px; }
-    .why-left h3 { font-size: 2.2rem; color: #0b2840; }
-    .why-features {
-      flex: 2 1 500px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px,1fr));
-      gap: 30px;
-    }
-    .feature {
-      background: white;
-      border-radius: 38px;
-      padding: 24px 20px;
-      box-shadow: 0 10px 18px -8px rgba(0,60,120,0.2);
-    }
-    .feature i {
-      font-size: 2rem;
-      background: var(--blue-soft-bg);
-      padding: 12px;
-      border-radius: 20px;
-      color: var(--blue-primary);
-      margin-bottom: 15px;
-    }
-
-    /* footer */
-    .footer {
-      background: white;
-      border-radius: 50px 50px 0 0;
-      padding: 44px 0 30px;
-      margin-top: 50px;
-      border-top: 2px solid var(--blue-light);
-    }
-    .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 28px;
-    }
-    .footer-logo h2 { font-size: 2rem; font-weight: 700; color: #07263b; }
-    .footer-logo p { color: #2e577a; margin-top: 4px; }
-    .footer-email i { color: var(--blue-primary); margin-right: 6px; }
-    .footer-email a { text-decoration: none; color: #1a3b57; border-bottom: 1px dashed var(--blue-light); }
-    .footer-links a {
-      text-decoration: none;
-      margin: 0 16px;
-      color: #1e4c73;
-    }
-    .footer-links a:hover { color: var(--blue-primary); }
-
-    @media (max-width:700px){
-      .hero h2 { font-size: 2.2rem; }
-      .stats-row { gap: 24px; }
-      .collection-area { flex-direction: column; }
-      .categories-side { flex-basis: auto; }
-      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); }
-    }
-  </style>
+        /* ===== LOADING ANIMATION ===== */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: hideLoading 1s ease 2s forwards;
+        }
+        
+        @keyframes hideLoading {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <!-- header -->
-  <div class="top-bar">
-    <div class="logo"><h1>Tools <span>Wonder</span></h1></div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Tools</a>
-      <a href="#">Contact</a>
-    </div>
-    <div class="email-badge"><i class="fas fa-envelope"></i> toolswonder1@gmail.com</div>
-  </div>
-
-  <!-- hero -->
-  <section class="hero">
-    <h2>Welcome to <span class="highlight">Tools Wonder</span></h2>
-    <p>Your daily tools, all in one place – fast, free & secure</p>
-    <div class="hero-btns">
-      <a href="#" class="btn-primary">Explore Tools</a>
-      <a href="#" class="btn-outline">View All</a>
-    </div>
-  </section>
-
-  <!-- stats -->
-  <div class="stats-row">
-    <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Sarkari Tools</div></div>
-    <div class="stat-item"><div class="stat-number">75K+</div><div class="stat-label">Active Users</div></div>
-    <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Secure & Free</div></div>
-    <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Fast Access</div></div>
-  </div>
-
-  <!-- search bar -->
-  <div class="search-section">
-    <div class="search-wrapper">
-      <i class="fas fa-search search-icon"></i>
-      <input type="text" id="searchInput" placeholder="Search a tool (converter, pdf, calculator...)">
-    </div>
-  </div>
-
-  <!-- category tabs -->
-  <div style="display: flex; justify-content: center;">
-    <div class="cat-tabs" id="categoryTabs">
-      <span class="cat-tab active" data-category="all">All Tools</span>
-      <span class="cat-tab" data-category="document">Document Tools</span>
-      <span class="cat-tab" data-category="converters">Converters</span>
-      <span class="cat-tab" data-category="calculators">Calculators</span>
-      <span class="cat-tab" data-category="utilities">Utilities</span>
-      <span class="cat-tab" data-category="color">Color Tools</span>
-      <span class="cat-tab" data-category="developer">Developer</span>
-    </div>
-  </div>
-
-  <!-- side categories + tool grid -->
-  <div class="collection-area">
-    <div class="categories-side">
-      <h4>Categories</h4>
-      <ul class="side-cat-list" id="sideCategoryList">
-        <li class="active" data-category="all">📌 All Tools</li>
-        <li data-category="document">📄 Document Tools</li>
-        <li data-category="converters">🔄 Converters</li>
-        <li data-category="calculators">🧮 Calculators</li>
-        <li data-category="utilities">🛠️ Utilities</li>
-        <li data-category="color">🎨 Color Tools</li>
-        <li data-category="developer">🌐 Developer</li>
-      </ul>
+    <!-- Loading Animation -->
+    <div class="loading">
+        <div class="loader"></div>
     </div>
 
-    <!-- tools grid (dynamic) -->
-    <div class="tools-grid-parent">
-      <div class="tools-grid" id="dynamicToolGrid"></div>
-    </div>
-  </div>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html">🇮🇳 Smart CSC Tools</a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="#tools">Tools</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-  <!-- process section -->
-  <div class="process-section">
-    <div class="process-header"><i class="fas fa-magic" style="color: var(--blue-primary);"></i> Process & Generate</div>
-    <div style="text-align: center; max-width:600px; margin: 0 auto 30px; color:#32648c;">Let our tools work for you – intuitive and user‑friendly.</div>
-    <div class="process-steps">
-      <div class="step-item"><div class="step-num">1</div><p>Choose Your Tool</p></div>
-      <div class="step-item"><div class="step-num">2</div><p>Configure</p></div>
-      <div class="step-item"><div class="step-num">3</div><p>Start Using</p></div>
-      <div class="step-item"><div class="step-num">4</div><p>View All Tools</p></div>
-    </div>
-  </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="csc-badge">⚡ CSC Activation Available ⚡</span>
+                <h1>Welcome to Smart CSC Tools</h1>
+                <p>India's Most Trusted Platform for Daily CSC Work<br>
+                <strong>– 20+ Free Sarkari Tools –</strong></p>
+                <div>
+                    <a href="#tools" class="btn btn-primary">Start Using Tools</a>
+                    <a href="#all-tools" class="btn btn-secondary">View All Tools</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- why choose -->
-  <div class="why-section">
-    <div class="why-left">
-      <h3>Why Choose Tools Wonder?</h3>
-      <p style="font-size: 1.2rem; margin-top: 20px;">The most trusted online toolkit for everyday tasks.</p>
-    </div>
-    <div class="why-features">
-      <div class="feature"><i class="fas fa-bolt"></i><h4>Lightning Fast</h4><p>Instant results</p></div>
-      <div class="feature"><i class="fas fa-lock"></i><h4>100% Secure</h4><p>Encrypted & safe</p></div>
-      <div class="feature"><i class="fas fa-fingerprint"></i><h4>Thumb Resizer</h4><p>Perfect for docs</p></div>
-      <div class="feature"><i class="fas fa-compress-alt"></i><h4>Compression</h4><p>6MB / 20KB data</p></div>
-      <div class="feature"><i class="fas fa-qrcode"></i><h4>QR Scanner</h4><p>All-in-One scanner</p></div>
-    </div>
-  </div>
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Sarkari Tools</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">75K+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Free & Secure</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Fast Access</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- footer -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-logo">
-        <h2>Tools Wonder</h2>
-        <p>Simplifying your digital life.</p>
-      </div>
-      <div class="footer-email">
-        <i class="fas fa-envelope"></i> <a href="mailto:toolswonder1@gmail.com">toolswonder1@gmail.com</a>
-      </div>
-      <div class="footer-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
-      </div>
-    </div>
-  </footer>
-</div>
+    <!-- Tools Section -->
+    <section id="tools" class="tools-section">
+        <div class="container">
+            <h2 class="section-title">Our <span>Tools Collection</span></h2>
+            <p class="section-subtitle">CSC VLE & SERP 100% Free & Useful Smart Tools</p>
+            
+            <!-- Category Buttons -->
+            <div class="categories">
+                <button class="category-btn active" onclick="filterTools('all')">All Tools</button>
+                <button class="category-btn" onclick="filterTools('document')">Document Tools</button>
+                <button class="category-btn" onclick="filterTools('converter')">Converters</button>
+                <button class="category-btn" onclick="filterTools('calculator')">Calculators</button>
+                <button class="category-btn" onclick="filterTools('utility')">Utilities</button>
+            </div>
 
-<script>
-  (function() {
-    // ------------- TOOL DATABASE with exact card structure -------------
-    const tools = [
-      // Image tools (converters / utilities)
-      { name: "Image Converter", desc: "Convert between JPG, PNG, GIF, WEBP and more formats", icon: "fa-image", category: "converters", link: "Resume-CV-Make.html" },
-      { name: "Image Compressor", desc: "Reduce image file size while maintaining quality", icon: "fa-compress-alt", category: "utilities", link: "image-compressor.html" },
-      { name: "Image Resizer", desc: "Resize images to any dimension for any platform", icon: "fa-expand-alt", category: "utilities", link: "image-resizer.html" },
-      { name: "Image Cropper", desc: "Crop unwanted areas precisely", icon: "fa-crop", category: "utilities", link: "image-cropper.html" },
-      { name: "Image to Text (OCR)", desc: "Extract text from images", icon: "fa-font", category: "converters", link: "ocr.html" },
-      // Document tools
-      { name: "PDF to Word", desc: "Convert PDF files to editable Word documents", icon: "fa-file-pdf", category: "document", link: "pdf-to-word.html" },
-      { name: "PDF Compressor", desc: "Reduce PDF file size", icon: "fa-file-pdf", category: "document", link: "pdf-compressor.html" },
-      { name: "PDF Merger", desc: "Combine multiple PDFs into one", icon: "fa-file-pdf", category: "document", link: "pdf-merger.html" },
-      { name: "PDF Splitter", desc: "Split PDF into separate pages", icon: "fa-file-pdf", category: "document", link: "pdf-splitter.html" },
-      { name: "PDF Lock/Unlock", desc: "Add or remove passwords", icon: "fa-lock", category: "document", link: "pdf-lock.html" },
-      { name: "eSign PDF", desc: "Digital signatures", icon: "fa-pen", category: "document", link: "esign.html" },
-      // Calculator tools
-      { name: "Age Calculator", desc: "Calculate exact age for exams", icon: "fa-calendar-alt", category: "calculators", link: "age-calculator.html" },
-      { name: "BMI Calculator", desc: "Body mass index", icon: "fa-heart", category: "calculators", link: "bmi.html" },
-      { name: "Loan EMI Calculator", desc: "Monthly EMI amount", icon: "fa-rupee-sign", category: "calculators", link: "emi.html" },
-      { name: "GST Calculator", desc: "Tax inclusive/exclusive", icon: "fa-calculator", category: "calculators", link: "gst.html" },
-      { name: "Currency Converter", desc: "Live exchange rates", icon: "fa-exchange-alt", category: "converters", link: "currency.html" },
-      // Text / Utility
-      { name: "Text Case Converter", desc: "UPPER, lower, Title case", icon: "fa-i-cursor", category: "utilities", link: "text-case.html" },
-      { name: "Word Counter", desc: "Count words & characters", icon: "fa-counter", category: "utilities", link: "word-count.html" },
-      { name: "Remove Duplicate Lines", desc: "Clean up text lists", icon: "fa-eraser", category: "utilities", link: "remove-duplicates.html" },
-      // Developer tools
-      { name: "JSON Formatter", desc: "Validate & pretty-print JSON", icon: "fa-code", category: "developer", link: "json-formatter.html" },
-      { name: "HTML/CSS Minifier", desc: "Minify code", icon: "fa-code", category: "developer", link: "minifier.html" },
-      { name: "Base64 Encoder", desc: "Encode to base64", icon: "fa-lock", category: "developer", link: "base64.html" },
-      { name: "URL Encoder", desc: "Percent encoding", icon: "fa-link", category: "developer", link: "url-encode.html" },
-      { name: "Regex Tester", desc: "Test regular expressions", icon: "fa-terminal", category: "developer", link: "regex.html" },
-      // Color tools
-      { name: "Color Picker", desc: "Pick from image, HEX/RGB", icon: "fa-palette", category: "color", link: "color-picker.html" },
-      { name: "HEX to RGB", desc: "Convert color codes", icon: "fa-palette", category: "color", link: "hex-to-rgb.html" },
-      { name: "Gradient Generator", desc: "Create CSS gradients", icon: "fa-paint-brush", category: "color", link: "gradient.html" },
-      { name: "Contrast Checker", desc: "Check WCAG contrast", icon: "fa-eye", category: "color", link: "contrast.html" },
-      // Utility extras
-      { name: "QR Generator", desc: "QR for docs & links", icon: "fa-qrcode", category: "utilities", link: "qr.html" },
-      { name: "Barcode Generator", desc: "Generate barcodes", icon: "fa-barcode", category: "utilities", link: "barcode.html" },
-      { name: "UUID Generator", desc: "Unique identifiers", icon: "fa-id-card", category: "utilities", link: "uuid.html" },
-      { name: "Unit Converter", desc: "Length, mass, volume", icon: "fa-scale-balanced", category: "converters", link: "unit-converter.html" },
-      { name: "Password Generator", desc: "Secure random passwords", icon: "fa-key", category: "utilities", link: "password.html" }
-    ];
+            <!-- Tools Grid - All 20+ Tools with Links -->
+            <div class="tools-grid" id="toolsGrid">
+                
+                <!-- 1. Resume/CV Maker -->
+                <a href="tools/resume-maker.html" class="tool-card" data-category="document">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">📄</div>
+                    <h3>Resume/CV Maker</h3>
+                    <p>Create professional resumes for government jobs applications. Multiple templates available.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
 
-    const grid = document.getElementById('dynamicToolGrid');
-    const searchInput = document.getElementById('searchInput');
-    const catTabs = document.querySelectorAll('.cat-tab');
-    const sideItems = document.querySelectorAll('#sideCategoryList li');
+                <!-- 2. Age Calculator -->
+                <a href="tools/age-calculator.html" class="tool-card" data-category="calculator">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">📅</div>
+                    <h3>Age Calculator</h3>
+                    <p>Calculate your exact age for exam eligibility. Find age in years, months, and days.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Calculator</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
 
-    let currentCategory = 'all';
-    let searchTerm = '';
+                <!-- 3. Type Test -->
+                <a href="tools/type-test.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">⌨️</div>
+                    <h3>Type Test</h3>
+                    <p>Test your typing speed and accuracy. Hindi and English typing tests available.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Utility</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
 
-    // Render cards based on category + search
-    function render() {
-      let filtered = tools.filter(t => 
-        (currentCategory === 'all' || t.category === currentCategory) &&
-        (t.name.toLowerCase().includes(searchTerm) || t.desc.toLowerCase().includes(searchTerm))
-      );
+                <!-- 4. PDF Merger -->
+                <a href="tools/pdf-merger.html" class="tool-card" data-category="document">
+                    <div class="tool-icon">📎</div>
+                    <h3>PDF Merger</h3>
+                    <p>Combine multiple PDF files into a single document. Free and fast.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
 
-      grid.innerHTML = '';
-      filtered.forEach(t => {
-        const card = document.createElement('div');
-        card.className = 'tool-card';
-        // using exact requested structure
-        card.innerHTML = `
-          <div class="tool-icon-container">
-            <i class="fas ${t.icon}"></i>
-          </div>
-          <h3>${t.name}</h3>
-          <p>${t.desc}</p>
-          <a href="${t.link}" class="tool-button">Use Tool</a>
-        `;
-        grid.appendChild(card);
-      });
+                <!-- 5. PDF Splitter -->
+                <a href="tools/pdf-splitter.html" class="tool-card" data-category="document">
+                    <div class="tool-icon">✂️</div>
+                    <h3>PDF Splitter</h3>
+                    <p>Split PDF files into separate pages or sections. Extract specific pages.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
 
-      // if no results
-      if (filtered.length === 0) {
-        grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding:40px;">No tools match your search.</p>';
-      }
-    }
+                <!-- 6. Image Resizer -->
+                <a href="tools/image-resizer.html" class="tool-card" data-category="utility">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">🖼️</div>
+                    <h3>Image Resizer</h3>
+                    <p>Resize photos to meet government application requirements. Passport size, etc.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Utility</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
 
-    // update active UI
-    function setActiveCategory(cat) {
-      currentCategory = cat;
-      // update tabs
-      catTabs.forEach(tab => {
-        if (tab.dataset.category === cat) tab.classList.add('active');
-        else tab.classList.remove('active');
-      });
-      sideItems.forEach(item => {
-        if (item.dataset.category === cat) item.classList.add('active');
-        else item.classList.remove('active');
-      });
-      render();
-    }
+                <!-- 7. Percentage Calculator -->
+                <a href="tools/percentage-calculator.html" class="tool-card" data-category="calculator">
+                    <div class="tool-icon">%</div>
+                    <h3>Percentage Calculator</h3>
+                    <p>Calculate percentages for marks, scores, and discounts. Easy to use.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Calculator</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
 
-    // event listeners
-    catTabs.forEach(tab => {
-      tab.addEventListener('click', (e) => {
-        e.preventDefault();
-        setActiveCategory(tab.dataset.category);
-      });
-    });
+                <!-- 8. Cover Letter Generator -->
+                <a href="tools/cover-letter.html" class="tool-card" data-category="document">
+                    <div class="tool-icon">📝</div>
+                    <h3>Cover Letter Generator</h3>
+                    <p>Create compelling cover letters for job applications. Professional templates.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
 
-    sideItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        setActiveCategory(item.dataset.category);
-      });
-    });
+                <!-- 9. Admit Card Manager -->
+                <a href="tools/admit-card.html" class="tool-card" data-category="document">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">🎫</div>
+                    <h3>Admit Card Manager</h3>
+                    <p>Organize and manage your exam admit cards. Download and print easily.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
 
-    searchInput.addEventListener('input', (e) => {
-      searchTerm = e.target.value.trim().toLowerCase();
-      render();
-    });
+                <!-- 10. GPA Calculator -->
+                <a href="tools/gpa-calculator.html" class="tool-card" data-category="calculator">
+                    <div class="tool-icon">📊</div>
+                    <h3>GPA Calculator</h3>
+                    <p>Calculate GPA and percentage easily. CGPA to percentage converter.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Calculator</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
 
-    // block dummy navigation for demo (but keep links as they are)
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        // allow actual navigation only for tool buttons (they have real .html links)
-        if (!link.classList.contains('tool-button')) {
-          e.preventDefault(); // prevent header/footer dummy links
+                <!-- 11. Word to PDF Converter -->
+                <a href="tools/word-to-pdf.html" class="tool-card" data-category="converter">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">📄➡️📑</div>
+                    <h3>Word to PDF Converter</h3>
+                    <p>Convert Word documents to PDF format. High quality conversion.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Converter</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 12. Photo Background Remover -->
+                <a href="tools/background-remover.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">✂️🖼️</div>
+                    <h3>Photo Background Remover</h3>
+                    <p>Remove backgrounds from photos for documents. Passport photos ready.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Utility</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 13. QR Code Generator -->
+                <a href="tools/qr-generator.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">📱</div>
+                    <h3>QR Code Generator</h3>
+                    <p>Generate QR codes for documents, links, and payments. Customizable.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Utility</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 14. Thumb Impression Resizer -->
+                <a href="tools/thumb-impression.html" class="tool-card" data-category="utility">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">👍</div>
+                    <h3>Thumb Impression Resizer</h3>
+                    <p>Resize thumb impressions for government documents. Correct size and format.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Utility</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 15. Aadhaar Card Generator -->
+                <a href="tools/aadhaar-generator.html" class="tool-card" data-category="document">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">🆔</div>
+                    <h3>Aadhaar Card Generator</h3>
+                    <p>Generate masked Aadhaar for CSC services. Safe and secure.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 16. PAN Card Generator -->
+                <a href="tools/pan-generator.html" class="tool-card" data-category="document">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">💳</div>
+                    <h3>PAN Card Generator</h3>
+                    <p>Generate formatted PAN card details for applications.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 17. Voter ID Generator -->
+                <a href="tools/voter-id.html" class="tool-card" data-category="document">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">🗳️</div>
+                    <h3>Voter ID Generator</h3>
+                    <p>Create voter ID format for CSC applications.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 18. Ration Card Generator -->
+                <a href="tools/ration-card.html" class="tool-card" data-category="document">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">🛒</div>
+                    <h3>Ration Card Generator</h3>
+                    <p>Generate ration card format for government services.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 19. Income Certificate -->
+                <a href="tools/income-certificate.html" class="tool-card" data-category="document">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">💰</div>
+                    <h3>Income Certificate</h3>
+                    <p>Generate income certificate format for government schemes.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 20. Caste Certificate -->
+                <a href="tools/caste-certificate.html" class="tool-card" data-category="document">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">📋</div>
+                    <h3>Caste Certificate</h3>
+                    <p>Generate caste certificate format for government applications.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 21. Domicile Certificate -->
+                <a href="tools/domicile.html" class="tool-card" data-category="document">
+                    <span class="sarkari-badge">Sarkari</span>
+                    <div class="tool-icon">🏠</div>
+                    <h3>Domicile Certificate</h3>
+                    <p>Generate domicile certificate format for state government.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Document</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 22. PDF to Word Converter -->
+                <a href="tools/pdf-to-word.html" class="tool-card" data-category="converter">
+                    <div class="tool-icon">📑➡️📄</div>
+                    <h3>PDF to Word Converter</h3>
+                    <p>Convert PDF files back to editable Word documents.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Converter</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 23. JPG to PDF Converter -->
+                <a href="tools/jpg-to-pdf.html" class="tool-card" data-category="converter">
+                    <div class="tool-icon">🖼️➡️📑</div>
+                    <h3>JPG to PDF Converter</h3>
+                    <p>Convert images to PDF format. Multiple images to single PDF.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Converter</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 24. Loan Calculator -->
+                <a href="tools/loan-calculator.html" class="tool-card" data-category="calculator">
+                    <div class="tool-icon">🏦</div>
+                    <h3>Loan Calculator</h3>
+                    <p>Calculate EMI, interest, and loan tenure for various loans.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Calculator</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+
+                <!-- 25. SIP Calculator -->
+                <a href="tools/sip-calculator.html" class="tool-card" data-category="calculator">
+                    <div class="tool-icon">📈</div>
+                    <h3>SIP Calculator</h3>
+                    <p>Calculate SIP returns and future value of investments.</p>
+                    <div class="tool-footer">
+                        <span class="tool-category">Calculator</span>
+                        <span class="use-tool">Use Tool →</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose <span>Smart CSC Tools?</span></h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Process documents in seconds with our optimized tools</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% Secure</h3>
+                    <p>Your data is encrypted and never stored on our servers</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🆓</div>
+                    <h3>Completely Free</h3>
+                    <p>All tools are 100% free for CSC operators</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Works perfectly on all devices - mobile, tablet, desktop</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section class="how-to-use">
+        <div class="container">
+            <h2 class="section-title">How to Use <span>Smart CSC Tools</span></h2>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <h3>Choose Tool</h3>
+                    <p>Select from 20+ Sarkari tools</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <h3>Enter Details</h3>
+                    <p>Fill in the required information</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <h3>Process</h3>
+                    <p>Click generate or process button</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <h3>Download</h3>
+                    <p>Download your document instantly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Smart CSC Tools is India's most trusted platform for CSC operators. We provide 20+ free Sarkari tools for daily use.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#tools">All Tools</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#tools">Document Tools</a></li>
+                        <li><a href="#tools">Converters</a></li>
+                        <li><a href="#tools">Calculators</a></li>
+                        <li><a href="#tools">Utilities</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <p>📞 +91 1234567890</p>
+                        <p>📧 info@smartcsc.com</p>
+                        <p>🌐 www.smartcsc.com</p>
+                        <p>⏰ 24/7 Support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>🇮🇳 Made in India with ❤️ for CSC VLEs | © 2026 Smart CSC Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for Category Filtering -->
+    <script>
+        // Category Filter Function
+        function filterTools(category) {
+            const tools = document.querySelectorAll('.tool-card');
+            const buttons = document.querySelectorAll('.category-btn');
+            
+            // Update active button
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Filter tools
+            tools.forEach(tool => {
+                if(category === 'all') {
+                    tool.style.display = 'block';
+                } else {
+                    if(tool.getAttribute('data-category') === category) {
+                        tool.style.display = 'block';
+                    } else {
+                        tool.style.display = 'none';
+                    }
+                }
+            });
         }
-      });
-    });
-
-    // initial render
-    render();
-  })();
-</script>
+        
+        // Remove loading animation
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loading').style.display = 'none';
+            }, 1500);
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
