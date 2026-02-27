@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume/CV Maker - Smart CSC Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f0f2f5;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1a237e, #283593);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff5722;
+        }
+
+        /* Tool Header */
+        .tool-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .tool-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .tool-content {
+            padding: 3rem 0;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-section h2 {
+            color: #1a237e;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #ff5722;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff5722;
+            box-shadow: 0 0 0 3px rgba(255,87,34,0.1);
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Resume Preview Section */
+        .preview-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 100px;
+        }
+
+        .preview-section h2 {
+            color: #1a237e;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #4caf50;
+        }
+
+        .resume-preview {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            min-height: 400px;
+            border: 2px dashed #ccc;
+        }
+
+        .preview-content {
+            font-family: 'Arial', sans-serif;
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ff5722;
+        }
+
+        .preview-header h3 {
+            color: #1a237e;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-header p {
+            color: #666;
+        }
+
+        .preview-section-title {
+            background: #1a237e;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.1rem;
+        }
+
+        .preview-item {
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 3px solid #ff5722;
+        }
+
+        .preview-item h4 {
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+
+        .preview-item p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-right: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #ff5722;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #f4511e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,87,34,0.3);
+        }
+
+        .btn-secondary {
+            background: #1a237e;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #283593;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26,35,126,0.3);
+        }
+
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #43a047;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76,175,80,0.3);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Template Selector */
+        .template-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .template-option {
+            text-align: center;
+            padding: 0.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .template-option:hover {
+            border-color: #ff5722;
+        }
+
+        .template-option.active {
+            border-color: #ff5722;
+            background: #fff3e0;
+        }
+
+        .template-option img {
+            width: 100%;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 0.3rem;
+            background: #f5f5f5;
+        }
+
+        .template-option span {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Template Styles */
+        .template-modern {
+            font-family: 'Arial', sans-serif;
+        }
+
+        .template-modern .preview-header {
+            background: linear-gradient(135deg, #1a237e, #283593);
+            color: white;
+            padding: 1.5rem;
+            margin: -2rem -2rem 2rem -2rem;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .template-modern .preview-header h3 {
+            color: white;
+        }
+
+        .template-modern .preview-header p {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .template-classic {
+            font-family: 'Times New Roman', serif;
+        }
+
+        .template-classic .preview-header {
+            border-bottom: 3px double #1a237e;
+        }
+
+        .template-minimal {
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        .template-minimal .preview-section-title {
+            background: transparent;
+            color: #1a237e;
+            border-bottom: 2px solid #ff5722;
+            padding-left: 0;
+        }
+
+        /* Skills Tags */
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-tag {
+            background: #e0e0e0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .skill-tag button {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .skill-tag button:hover {
+            color: #ff5722;
+        }
+
+        .add-skill {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .add-skill input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+        }
+
+        .add-skill button {
+            padding: 0.5rem 1rem;
+            background: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Education Section */
+        .education-entry {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .remove-entry {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #ff5722;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .remove-entry:hover {
+            background: #f4511e;
+        }
+
+        .add-entry {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #263238;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ff5722;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .preview-section {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #ff5722;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../index.html">📄 Smart CSC Tools</a>
+                </div>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#tools">Tools</a>
+                    <a href="../about.html">About</a>
+                    <a href="../contact.html">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Tool Header -->
+    <section class="tool-header">
+        <div class="container">
+            <h1>📄 Resume/CV Maker</h1>
+            <p>Create professional resumes for government jobs applications in minutes</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="tool-content">
+        <div class="container">
+            <!-- Alert Messages -->
+            <div id="successAlert" class="alert success">
+                ✅ Resume generated successfully! You can now download or print.
+            </div>
+            <div id="errorAlert" class="alert error">
+                ❌ Please fill all required fields.
+            </div>
+
+            <div class="tool-grid">
+                <!-- Form Section -->
+                <div class="form-section">
+                    <h2>📝 Enter Your Details</h2>
+                    
+                    <!-- Template Selection -->
+                    <div class="form-group">
+                        <label>Choose Template</label>
+                        <div class="template-selector">
+                            <div class="template-option active" onclick="selectTemplate('modern')">
+                                <div style="height: 60px; background: linear-gradient(135deg, #1a237e, #283593); border-radius: 5px;"></div>
+                                <span>Modern</span>
+                            </div>
+                            <div class="template-option" onclick="selectTemplate('classic')">
+                                <div style="height: 60px; background: linear-gradient(135deg, #fff, #f0f0f0); border: 2px solid #1a237e; border-radius: 5px;"></div>
+                                <span>Classic</span>
+                            </div>
+                            <div class="template-option" onclick="selectTemplate('minimal')">
+                                <div style="height: 60px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 5px;"></div>
+                                <span>Minimal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information -->
+                    <h3 style="color: #ff5722; margin: 1.5rem 0 1rem;">👤 Personal Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name" onkeyup="updatePreview()">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" placeholder="Enter your email" onkeyup="updatePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone *</label>
+                            <input type="tel" id="phone" placeholder="Enter your phone number" onkeyup="updatePreview()">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" placeholder="Enter your address" onkeyup="updatePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" placeholder="Enter your city" onkeyup="updatePreview()">
+                        </div>
+                    </div>
+
+                    <!-- Professional Summary -->
+                    <h3 style="color: #ff5722; margin: 1.5rem 0 1rem;">📋 Professional Summary</h3>
+                    
+                    <div class="form-group">
+                        <label for="summary">Summary *</label>
+                        <textarea id="summary" placeholder="Write a brief summary about yourself..." onkeyup="updatePreview()">Experienced professional with expertise in... </textarea>
+                    </div>
+
+                    <!-- Skills -->
+                    <h3 style="color: #ff5722; margin: 1.5rem 0 1rem;">⚡ Skills</h3>
+                    
+                    <div class="skills-tags" id="skillsContainer">
+                        <span class="skill-tag">MS Office <button onclick="removeSkill('MS Office')">×</button></span>
+                        <span class="skill-tag">Communication <button onclick="removeSkill('Communication')">×</button></span>
+                        <span class="skill-tag">Team Leadership <button onclick="removeSkill('Team Leadership')">×</button></span>
+                    </div>
+                    
+                    <div class="add-skill">
+                        <input type="text" id="newSkill" placeholder="Add a skill (e.g., Tally, Excel)">
+                        <button onclick="addSkill()">Add</button>
+                    </div>
+
+                    <!-- Education -->
+                    <h3 style="color: #ff5722; margin: 1.5rem 0 1rem;">🎓 Education</h3>
+                    
+                    <div id="educationContainer">
+                        <div class="education-entry" id="edu1">
+                            <button class="remove-entry" onclick="removeEducation('edu1')">×</button>
+                            <div class="form-group">
+                                <input type="text" class="edu-degree" placeholder="Degree (e.g., B.Com)" onkeyup="updatePreview()" value="B.Com">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="edu-institute" placeholder="Institute Name" onkeyup="updatePreview()" value="Delhi University">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" class="edu-year" placeholder="Year" onkeyup="updatePreview()" value="2020">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="edu-percentage" placeholder="Percentage/GPA" onkeyup="updatePreview()" value="85%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="add-entry" onclick="addEducation()">+ Add More Education</button>
+
+                    <!-- Experience -->
+                    <h3 style="color: #ff5722; margin: 1.5rem 0 1rem;">💼 Work Experience</h3>
+                    
+                    <div id="experienceContainer">
+                        <div class="education-entry" id="exp1">
+                            <button class="remove-entry" onclick="removeExperience('exp1')">×</button>
+                            <div class="form-group">
+                                <input type="text" class="exp-job" placeholder="Job Title" onkeyup="updatePreview()" value="Customer Service Executive">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="exp-company" placeholder="Company Name" onkeyup="updatePreview()" value="CSC Center">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" class="exp-from" placeholder="From Year" onkeyup="updatePreview()" value="2021">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="exp-to" placeholder="To Year" onkeyup="updatePreview()" value="Present">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="exp-desc" placeholder="Job Description" onkeyup="updatePreview()">Handling customer queries, document processing, data entry</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="add-entry" onclick="addExperience()">+ Add More Experience</button>
+
+                    <!-- Languages -->
+                    <h3 style="color: #ff5722; margin: 1.5rem 0 1rem;">🌐 Languages</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Hindi</label>
+                            <select onchange="updatePreview()" id="langHindi">
+                                <option value="Native">Native</option>
+                                <option value="Fluent">Fluent</option>
+                                <option value="Working">Working</option>
+                                <option value="Basic">Basic</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>English</label>
+                            <select onchange="updatePreview()" id="langEnglish">
+                                <option value="Fluent">Fluent</option>
+                                <option value="Native">Native</option>
+                                <option value="Working">Working</option>
+                                <option value="Basic">Basic</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="generateResume()">Generate Resume</button>
+                        <button class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
+                    </div>
+                </div>
+
+                <!-- Preview Section -->
+                <div class="preview-section">
+                    <h2>👁️ Live Preview</h2>
+                    
+                    <!-- Resume Preview -->
+                    <div class="resume-preview" id="resumePreview">
+                        <div class="preview-content" id="previewContent">
+                            <!-- Preview will be updated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Download Options -->
+                    <div class="btn-group">
+                        <button class="btn btn-success" onclick="downloadPDF()">📥 Download PDF</button>
+                        <button class="btn btn-secondary" onclick="printResume()">🖨️ Print</button>
+                        <button class="btn btn-primary" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+                    </div>
+
+                    <div style="margin-top: 1rem; text-align: center;">
+                        <a href="../index.html#tools" style="color: #ff5722; text-decoration: none;">← Back to All Tools</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2026 Smart CSC Tools. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../about.html">About</a>
+                    <a href="../contact.html">Contact</a>
+                    <a href="../privacy.html">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Current template
+        let currentTemplate = 'modern';
+
+        // Skills array
+        let skills = ['MS Office', 'Communication', 'Team Leadership'];
+
+        // Education counter
+        let eduCount = 1;
+        let expCount = 1;
+
+        // Select Template
+        function selectTemplate(template) {
+            currentTemplate = template;
+            
+            // Update active class
+            document.querySelectorAll('.template-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.target.closest('.template-option').classList.add('active');
+            
+            updatePreview();
+        }
+
+        // Update Preview
+        function updatePreview() {
+            const fullName = document.getElementById('fullName').value || 'Your Name';
+            const email = document.getElementById('email').value || 'email@example.com';
+            const phone = document.getElementById('phone').value || '9876543210';
+            const address = document.getElementById('address').value || 'Your Address';
+            const city = document.getElementById('city').value || 'Your City';
+            const summary = document.getElementById('summary').value || 'Professional summary...';
+            
+            let previewHTML = `<div class="preview-content template-${currentTemplate}">`;
+            
+            // Header
+            previewHTML += `
+                <div class="preview-header">
+                    <h3>${fullName}</h3>
+                    <p>${email} | ${phone}</p>
+                    <p>${address}, ${city}</p>
+                </div>
+            `;
+            
+            // Summary
+            previewHTML += `
+                <div class="preview-section-title">Professional Summary</div>
+                <div class="preview-item">
+                    <p>${summary}</p>
+                </div>
+            `;
+            
+            // Skills
+            previewHTML += `<div class="preview-section-title">Skills</div>`;
+            previewHTML += `<div class="skills-tags">`;
+            skills.forEach(skill => {
+                previewHTML += `<span class="skill-tag">${skill}</span>`;
+            });
+            previewHTML += `</div>`;
+            
+            // Education
+            previewHTML += `<div class="preview-section-title">Education</div>`;
+            
+            for(let i = 1; i <= eduCount; i++) {
+                const eduElement = document.getElementById(`edu${i}`);
+                if(eduElement) {
+                    const degree = eduElement.querySelector('.edu-degree')?.value || 'Degree';
+                    const institute = eduElement.querySelector('.edu-institute')?.value || 'Institute';
+                    const year = eduElement.querySelector('.edu-year')?.value || 'Year';
+                    const percentage = eduElement.querySelector('.edu-percentage')?.value || 'Percentage';
+                    
+                    previewHTML += `
+                        <div class="preview-item">
+                            <h4>${degree}</h4>
+                            <p>${institute} | ${year} | ${percentage}</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Experience
+            previewHTML += `<div class="preview-section-title">Work Experience</div>`;
+            
+            for(let i = 1; i <= expCount; i++) {
+                const expElement = document.getElementById(`exp${i}`);
+                if(expElement) {
+                    const job = expElement.querySelector('.exp-job')?.value || 'Job Title';
+                    const company = expElement.querySelector('.exp-company')?.value || 'Company';
+                    const from = expElement.querySelector('.exp-from')?.value || 'From';
+                    const to = expElement.querySelector('.exp-to')?.value || 'To';
+                    const desc = expElement.querySelector('.exp-desc')?.value || 'Description';
+                    
+                    previewHTML += `
+                        <div class="preview-item">
+                            <h4>${job} - ${company}</h4>
+                            <p>${from} - ${to}</p>
+                            <p>${desc}</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Languages
+            const hindi = document.getElementById('langHindi')?.value || 'Native';
+            const english = document.getElementById('langEnglish')?.value || 'Fluent';
+            
+            previewHTML += `<div class="preview-section-title">Languages</div>`;
+            previewHTML += `
+                <div class="preview-item">
+                    <p>Hindi: ${hindi} | English: ${english}</p>
+                </div>
+            `;
+            
+            previewHTML += `</div>`;
+            
+            document.getElementById('previewContent').innerHTML = previewHTML;
+        }
+
+        // Add Skill
+        function addSkill() {
+            const newSkill = document.getElementById('newSkill').value.trim();
+            if(newSkill) {
+                skills.push(newSkill);
+                
+                let skillsHTML = '';
+                skills.forEach(skill => {
+                    skillsHTML += `<span class="skill-tag">${skill} <button onclick="removeSkill('${skill}')">×</button></span>`;
+                });
+                
+                document.getElementById('skillsContainer').innerHTML = skillsHTML;
+                document.getElementById('newSkill').value = '';
+                updatePreview();
+            }
+        }
+
+        // Remove Skill
+        function removeSkill(skill) {
+            skills = skills.filter(s => s !== skill);
+            
+            let skillsHTML = '';
+            skills.forEach(s => {
+                skillsHTML += `<span class="skill-tag">${s} <button onclick="removeSkill('${s}')">×</button></span>`;
+            });
+            
+            document.getElementById('skillsContainer').innerHTML = skillsHTML;
+            updatePreview();
+        }
+
+        // Add Education
+        function addEducation() {
+            eduCount++;
+            const container = document.getElementById('educationContainer');
+            
+            const newEdu = document.createElement('div');
+            newEdu.className = 'education-entry';
+            newEdu.id = `edu${eduCount}`;
+            newEdu.innerHTML = `
+                <button class="remove-entry" onclick="removeEducation('edu${eduCount}')">×</button>
+                <div class="form-group">
+                    <input type="text" class="edu-degree" placeholder="Degree (e.g., B.Com)" onkeyup="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="edu-institute" placeholder="Institute Name" onkeyup="updatePreview()">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" class="edu-year" placeholder="Year" onkeyup="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="edu-percentage" placeholder="Percentage/GPA" onkeyup="updatePreview()">
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(newEdu);
+        }
+
+        // Remove Education
+        function removeEducation(id) {
+            document.getElementById(id)?.remove();
+            updatePreview();
+        }
+
+        // Add Experience
+        function addExperience() {
+            expCount++;
+            const container = document.getElementById('experienceContainer');
+            
+            const newExp = document.createElement('div');
+            newExp.className = 'education-entry';
+            newExp.id = `exp${expCount}`;
+            newExp.innerHTML = `
+                <button class="remove-entry" onclick="removeExperience('exp${expCount}')">×</button>
+                <div class="form-group">
+                    <input type="text" class="exp-job" placeholder="Job Title" onkeyup="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="exp-company" placeholder="Company Name" onkeyup="updatePreview()">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" class="exp-from" placeholder="From Year" onkeyup="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="exp-to" placeholder="To Year" onkeyup="updatePreview()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea class="exp-desc" placeholder="Job Description" onkeyup="updatePreview()"></textarea>
+                </div>
+            `;
+            
+            container.appendChild(newExp);
+        }
+
+        // Remove Experience
+        function removeExperience(id) {
+            document.getElementById(id)?.remove();
+            updatePreview();
+        }
+
+        // Generate Resume
+        function generateResume() {
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            
+            if(!fullName || !email || !phone) {
+                document.getElementById('errorAlert').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('errorAlert').style.display = 'none';
+                }, 3000);
+                return;
+            }
+            
+            document.getElementById('loading').classList.add('active');
+            
+            setTimeout(() => {
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('successAlert').style.display = 'block';
+                
+                setTimeout(() => {
+                    document.getElementById('successAlert').style.display = 'none';
+                }, 3000);
+                
+                updatePreview();
+            }, 1500);
+        }
+
+        // Reset Form
+        function resetForm() {
+            if(confirm('Are you sure you want to reset all fields?')) {
+                document.getElementById('fullName').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('address').value = '';
+                document.getElementById('city').value = '';
+                document.getElementById('summary').value = '';
+                
+                skills = ['MS Office', 'Communication', 'Team Leadership'];
+                let skillsHTML = '';
+                skills.forEach(skill => {
+                    skillsHTML += `<span class="skill-tag">${skill} <button onclick="removeSkill('${skill}')">×</button></span>`;
+                });
+                document.getElementById('skillsContainer').innerHTML = skillsHTML;
+                
+                updatePreview();
+            }
+        }
+
+        // Download PDF
+        function downloadPDF() {
+            alert('PDF download functionality will be available soon!');
+        }
+
+        // Print Resume
+        function printResume() {
+            const printContent = document.getElementById('previewContent').innerHTML;
+            const originalContent = document.body.innerHTML;
+            
+            document.body.innerHTML = `
+                <div style="padding: 2rem; max-width: 800px; margin: 0 auto;">
+                    ${printContent}
+                </div>
+            `;
+            
+            window.print();
+            document.body.innerHTML = originalContent;
+            location.reload();
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard() {
+            const content = document.getElementById('previewContent').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Resume copied to clipboard!');
+            });
+        }
+
+        // Initial preview
+        window.onload = function() {
+            updatePreview();
+        };
+    </script>
+</body>
+</html>
