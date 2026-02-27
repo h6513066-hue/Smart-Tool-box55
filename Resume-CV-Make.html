@@ -1,690 +1,1195 @@
-<!DOCTYPE html>
+  
+    
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Tools Wonder • Complete toolkit</title>
-  <!-- Font Awesome 6 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Wonder - Your Daily Tools, All in One Place</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #93c5fd;
+            --bg-gray: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --rounded: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--text-dark);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .contact-email {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .contact-email i {
+            color: var(--primary-blue);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--primary-blue);
+            padding: 12px 30px;
+            border-radius: var(--rounded);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-bottom: 40px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tool-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .tool-icon {
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        /* Search */
+        .search-section {
+            padding: 30px 0;
+            background-color: var(--white);
+            margin-top: -40px;
+            border-radius: var(--rounded);
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .search-container {
+            padding: 0 20px;
+        }
+        
+        .search-bar {
+            display: flex;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--rounded) 0 0 var(--rounded);
+            font-size: 16px;
+            outline: none;
+            transition: var(--transition);
+        }
+        
+        .search-bar input:focus {
+            border-color: var(--primary-blue);
+        }
+        
+        .search-bar button {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 var(--rounded) var(--rounded) 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-bar button:hover {
+            background-color: var(--dark-blue);
+        }
+        
+        /* Tools Sections */
+        .tools-section {
+            padding: 60px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+        
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .tool-card {
+            background-color: var(--white);
+            border-radius: var(--rounded);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tool-icon-container {
+            width: 50px;
+            height: 50px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+            font-size: 20px;
+        }
+        
+        .tool-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .tool-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .tool-button {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: var(--rounded);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .tool-button:hover {
+            background-color: var(--dark-blue);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .footer-logo span {
+            color: var(--light-blue);
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+        
+        .footer-links h3 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--light-blue);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        .footer-links ul li a:hover {
+            opacity: 1;
+            color: var(--light-blue);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
 
-    body {
-      background: #f5f9ff;
-      color: #0b1f33;
-      line-height: 1.5;
-    }
+        /* Search Results */
+        .search-results {
+            display: none;
+            background-color: var(--white);
+            border-radius: var(--rounded);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-top: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    :root {
-      --blue-deep: #0a3b5b;
-      --blue-primary: #1e6bb8;
-      --blue-light: #d9ebff;
-      --blue-soft-bg: #e4f0fd;
-      --card-shadow: 0 12px 28px -10px rgba(0, 40, 80, 0.15);
-      --hover-lift: translateY(-6px);
-    }
+        .search-results h3 {
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
 
-    .container {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+        .search-results ul {
+            list-style: none;
+        }
 
-    /* ----- header ----- */
-    .top-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 0;
-      border-bottom: 1px solid rgba(0,60,120,0.1);
-    }
-    .logo h1 {
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #07263b;
-    }
-    .logo span {
-      color: var(--blue-primary);
-      font-weight: 650;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2.2rem;
-      font-weight: 550;
-      color: #1e405e;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: inherit;
-    }
-    .nav-links a:hover { color: var(--blue-primary); }
-    .email-badge {
-      background: white;
-      border-radius: 40px;
-      padding: 8px 18px;
-      box-shadow: 0 4px 12px rgba(0,60,130,0.08);
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #0a3b5b;
-      border: 1px solid var(--blue-light);
-    }
-    .email-badge i { color: var(--blue-primary); }
+        .search-results ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
 
-    /* ----- hero ----- */
-    .hero {
-      text-align: center;
-      padding: 48px 0 32px;
-    }
-    .hero h2 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: #0b2840;
-      max-width: 800px;
-      margin: 0 auto 12px;
-    }
-    .hero .highlight {
-      color: var(--blue-primary);
-    }
-    .hero p {
-      font-size: 1.3rem;
-      color: #2d4b6e;
-      margin-bottom: 30px;
-    }
-    .hero-btns {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn-primary {
-      background: var(--blue-primary);
-      color: white;
-      font-weight: 600;
-      padding: 14px 40px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 1.1rem;
-      box-shadow: 0 8px 22px rgba(30,107,184,0.3);
-      transition: 0.2s;
-    }
-    .btn-primary:hover {
-      background: #0f4d8a;
-      transform: scale(1.02);
-    }
-    .btn-outline {
-      background: white;
-      border: 2px solid var(--blue-primary);
-      color: var(--blue-primary);
-      font-weight: 600;
-      padding: 12px 36px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 1.1rem;
-    }
-    .btn-outline:hover {
-      background: var(--blue-light);
-    }
+        .search-results ul li:last-child {
+            border-bottom: none;
+        }
 
-    /* ----- stats ----- */
-    .stats-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 48px;
-      margin: 48px 0 40px;
-    }
-    .stat-item {
-      text-align: center;
-    }
-    .stat-number {
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: var(--blue-deep);
-      line-height: 1.2;
-    }
-    .stat-label {
-      color: #365f7e;
-      font-weight: 500;
-    }
+        .search-results ul li a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
 
-    /* ----- search bar ----- */
-    .search-section {
-      margin: 30px 0 40px;
-    }
-    .search-wrapper {
-      position: relative;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .search-icon {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #7a9bc2;
-      font-size: 1.2rem;
-    }
-    #searchInput {
-      width: 100%;
-      padding: 16px 24px 16px 58px;
-      font-size: 1.1rem;
-      border: 2px solid #c7dfff;
-      border-radius: 60px;
-      outline: none;
-      background: white;
-      box-shadow: 0 4px 16px rgba(0,60,130,0.08);
-      transition: 0.2s;
-    }
-    #searchInput:focus {
-      border-color: var(--blue-primary);
-      box-shadow: 0 6px 20px rgba(30,107,184,0.15);
-    }
-
-    /* ----- category tabs (clickable) ----- */
-    .cat-tabs {
-      background: white;
-      border-radius: 60px;
-      padding: 10px 20px;
-      display: inline-flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px 28px;
-      margin: 20px 0 20px;
-      box-shadow: var(--card-shadow);
-    }
-    .cat-tab {
-      font-weight: 600;
-      color: #1d4663;
-      cursor: pointer;
-      padding: 6px 0;
-      border-bottom: 3px solid transparent;
-      transition: all 0.2s;
-    }
-    .cat-tab:hover { color: var(--blue-primary); }
-    .cat-tab.active {
-      color: var(--blue-primary);
-      border-bottom-color: var(--blue-primary);
-    }
-
-    /* ----- side categories + main grid ----- */
-    .collection-area {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      margin: 20px 0 40px;
-    }
-    .categories-side {
-      flex: 0 0 200px;
-    }
-    .categories-side h4 {
-      font-size: 1.3rem;
-      margin-bottom: 16px;
-      color: #07263b;
-    }
-    .side-cat-list {
-      list-style: none;
-    }
-    .side-cat-list li {
-      padding: 10px 0 10px 20px;
-      margin-bottom: 4px;
-      font-weight: 500;
-      border-left: 4px solid transparent;
-      color: #1e4c73;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .side-cat-list li:hover {
-      background: var(--blue-light);
-      border-radius: 0 20px 20px 0;
-    }
-    .side-cat-list li.active {
-      border-left-color: var(--blue-primary);
-      background: var(--blue-light);
-      border-radius: 0 20px 20px 0;
-      color: #0a3b5b;
-      font-weight: 600;
-    }
-
-    /* ----- TOOL CARD (exactly as requested) ----- */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 28px;
-    }
-    .tool-card {
-      background: white;
-      border-radius: 24px;
-      padding: 28px 20px 24px;
-      box-shadow: 0 10px 25px -8px rgba(0, 40, 80, 0.15);
-      transition: all 0.3s ease;
-      text-align: center;
-      border: 1px solid #e6f0fa;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .tool-card:hover {
-      transform: var(--hover-lift);
-      box-shadow: 0 20px 30px -10px rgba(30, 107, 184, 0.25);
-      border-color: #b8d9ff;
-    }
-    .tool-icon-container {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(145deg, #e6f0fd, #d4e6ff);
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
-      box-shadow: inset 0 2px 5px rgba(255,255,255,0.8), 0 5px 12px rgba(0,70,150,0.15);
-    }
-    .tool-icon-container i {
-      font-size: 2.5rem;
-      color: var(--blue-primary);
-    }
-    .tool-card h3 {
-      font-size: 1.3rem;
-      font-weight: 650;
-      color: #0b2840;
-      margin-bottom: 10px;
-    }
-    .tool-card p {
-      color: #4d6a8a;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-bottom: 22px;
-      flex-grow: 1;
-      padding: 0 8px;
-    }
-    .tool-button {
-      display: inline-block;
-      background: var(--blue-primary);
-      color: white;
-      font-weight: 600;
-      padding: 12px 28px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 0.95rem;
-      box-shadow: 0 5px 15px rgba(30, 107, 184, 0.3);
-      transition: all 0.2s;
-      border: none;
-      width: auto;
-      min-width: 130px;
-      letter-spacing: 0.3px;
-    }
-    .tool-button:hover {
-      background: #0f4d8a;
-      transform: scale(1.03);
-      box-shadow: 0 8px 20px rgba(30, 107, 184, 0.4);
-    }
-
-    /* hidden for filtering */
-    .tool-card.hidden {
-      display: none;
-    }
-
-    /* process & why sections (keep clean) */
-    .process-section {
-      background: white;
-      border-radius: 60px;
-      padding: 48px 36px;
-      margin: 60px 0 30px;
-    }
-    .process-header {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 40px;
-    }
-    .process-steps {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px 70px;
-    }
-    .step-item {
-      text-align: center;
-      max-width: 180px;
-    }
-    .step-num {
-      background: var(--blue-deep);
-      color: white;
-      width: 48px;
-      height: 48px;
-      font-size: 1.6rem;
-      font-weight: 700;
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 14px;
-    }
-    .why-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      margin: 50px 0;
-      background: #e4f0fd;
-      border-radius: 60px;
-      padding: 44px 40px;
-    }
-    .why-left { flex: 1 1 300px; }
-    .why-left h3 { font-size: 2.2rem; color: #0b2840; }
-    .why-features {
-      flex: 2 1 500px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px,1fr));
-      gap: 30px;
-    }
-    .feature {
-      background: white;
-      border-radius: 38px;
-      padding: 24px 20px;
-      box-shadow: 0 10px 18px -8px rgba(0,60,120,0.2);
-    }
-    .feature i {
-      font-size: 2rem;
-      background: var(--blue-soft-bg);
-      padding: 12px;
-      border-radius: 20px;
-      color: var(--blue-primary);
-      margin-bottom: 15px;
-    }
-
-    /* footer */
-    .footer {
-      background: white;
-      border-radius: 50px 50px 0 0;
-      padding: 44px 0 30px;
-      margin-top: 50px;
-      border-top: 2px solid var(--blue-light);
-    }
-    .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 28px;
-    }
-    .footer-logo h2 { font-size: 2rem; font-weight: 700; color: #07263b; }
-    .footer-logo p { color: #2e577a; margin-top: 4px; }
-    .footer-email i { color: var(--blue-primary); margin-right: 6px; }
-    .footer-email a { text-decoration: none; color: #1a3b57; border-bottom: 1px dashed var(--blue-light); }
-    .footer-links a {
-      text-decoration: none;
-      margin: 0 16px;
-      color: #1e4c73;
-    }
-    .footer-links a:hover { color: var(--blue-primary); }
-
-    @media (max-width:700px){
-      .hero h2 { font-size: 2.2rem; }
-      .stats-row { gap: 24px; }
-      .collection-area { flex-direction: column; }
-      .categories-side { flex-basis: auto; }
-      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); }
-    }
-  </style>
+        .search-results ul li a:hover {
+            color: var(--primary-blue);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tool-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .tool-icons {
+                gap: 20px;
+            }
+            
+            .search-section {
+                margin-top: -30px;
+            }
+            
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .contact-email {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+            }
+            
+            .search-bar input {
+                border-radius: var(--rounded);
+                margin-bottom: 10px;
+            }
+            
+            .search-bar button {
+                border-radius: var(--rounded);
+                padding: 15px;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <!-- header -->
-  <div class="top-bar">
-    <div class="logo"><h1>Tools <span>Wonder</span></h1></div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Tools</a>
-      <a href="#">Contact</a>
-    </div>
-    <div class="email-badge"><i class="fas fa-envelope"></i> toolswonder1@gmail.com</div>
-  </div>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Tools<span>Wonder</span></a>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="contact-email">
+                <i class="fas fa-envelope"></i>
+                <span>toolswonder1@gmail.com</span>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Your Daily Tools, All in One Place</h1>
+            <p>Convert, calculate, compress, and simplify your everyday tasks — fast and free.</p>
+            <a href="#tools" class="cta-button">Explore Tools</a>
+            
+            <div class="tool-icons">
+                <div class="tool-icon">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="tool-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="tool-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="tool-icon">
+                    <i class="fas fa-font"></i>
+                </div>
+                <div class="tool-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="tool-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" placeholder="Search a tool..." id="searchInput">
+                <button type="submit" id="searchButton"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="search-results" id="searchResults">
+                <h3>Search Results</h3>
+                <ul id="resultsList">
+                    <!-- Results will be populated here -->
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Image Tools Section -->
+    <section class="tools-section" id="tools">
+        <div class="container">
+            <div class="section-header">
+                <h2>🖼 Image Tools</h2>
+                <p>Edit, convert and optimize your images with our powerful tools</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Image Converter</h3>
+                    <p>Convert between JPG, PNG, GIF, WEBP and more formats</p>
+                    <a href="Resume-CV-Make.html" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-compress-alt"></i>
+                    </div>
+                    <h3>Image Compressor</h3>
+                    <p>Reduce image file size without losing quality</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-expand-alt"></i>
+                    </div>
+                    <h3>Image Resizer</h3>
+                    <p>Resize images to any dimension while maintaining aspect ratio</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-crop-alt"></i>
+                    </div>
+                    <h3>Image Cropper</h3>
+                    <p>Crop images to remove unwanted areas or focus on specific parts</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-font"></i>
+                    </div>
+                    <h3>Image to Text (OCR)</h3>
+                    <p>Extract text from images with optical character recognition</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Image Rotator/Flipper</h3>
+                    <p>Rotate or flip images horizontally/vertically</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Document Tools Section -->
+    <section class="tools-section" style="background-color: #f1f5f9;">
+        <div class="container">
+            <div class="section-header">
+                <h2>📄 Document Tools</h2>
+                <p>Manage and convert your documents with ease</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>PDF to Word / Word to PDF</h3>
+                    <p>Convert between PDF and Word documents seamlessly</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-file-archive"></i>
+                    </div>
+                    <h3>PDF Compressor</h3>
+                    <p>Reduce PDF file size while maintaining quality</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>PDF Merger & Splitter</h3>
+                    <p>Combine multiple PDFs or split pages from a PDF</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Document Converter</h3>
+                    <p>Convert between various document formats</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>PDF Lock/Unlock</h3>
+                    <p>Add or remove passwords from PDF files</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-signature"></i>
+                    </div>
+                    <h3>eSign PDF</h3>
+                    <p>Add digital signatures to your PDF documents</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Calculator Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🧮 Calculator Tools</h2>
+                <p>Perform various calculations for your daily needs</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-square-root-alt"></i>
+                    </div>
+                    <h3>Scientific Calculator</h3>
+                    <p>Advanced calculator with scientific functions</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <h3>Age Calculator</h3>
+                    <p>Calculate age from birth date to current date</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <h3>BMI Calculator</h3>
+                    <p>Calculate your Body Mass Index</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Loan EMI Calculator</h3>
+                    <p>Calculate Equated Monthly Installments for loans</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h3>GST Calculator</h3>
+                    <p>Calculate Goods and Services Tax amounts</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Currency Converter</h3>
+                    <p>Convert between world currencies with live rates</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Text Tools Section -->
+    <section class="tools-section" style="background-color: #f1f5f9;">
+        <div class="container">
+            <div class="section-header">
+                <h2>🔤 Text Tools</h2>
+                <p>Manipulate and analyze text with our text processing tools</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-text-height"></i>
+                    </div>
+                    <h3>Text Case Converter</h3>
+                    <p>Change text between uppercase, lowercase and more</p>
+                    <a href="text-case-converter.html" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-sort-amount-down"></i>
+                    </div>
+                    <h3>Word & Character Counter</h3>
+                    <p>Count words, characters, sentences and paragraphs</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    <h3>Remove Duplicate Lines</h3>
+                    <p>Clean up text by removing duplicate lines</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-sort-alpha-down"></i>
+                    </div>
+                    <h3>Text Sorter</h3>
+                    <p>Sort lines of text alphabetically or numerically</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <h3>Text Reverser</h3>
+                    <p>Reverse text, words, or character order</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Text Encryptor/Decryptor</h3>
+                    <p>Encrypt and decrypt text with secure algorithms</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- hero -->
-  <section class="hero">
-    <h2>Welcome to <span class="highlight">Tools Wonder</span></h2>
-    <p>Your daily tools, all in one place – fast, free & secure</p>
-    <div class="hero-btns">
-      <a href="#" class="btn-primary">Explore Tools</a>
-      <a href="#" class="btn-outline">View All</a>
-    </div>
-  </section>
+    <!-- Web/Developer Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🌐 Web/Developer Tools</h2>
+                <p>Essential tools for developers and webmasters</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3>HTML/CSS/JS Minifier</h3>
+                    <p>Minify your code to reduce file size and improve performance</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-brackets-curly"></i>
+                    </div>
+                    <h3>JSON Formatter & Validator</h3>
+                    <p>Format and validate JSON data for readability and correctness</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>Base64 Encoder/Decoder</h3>
+                    <p>Encode and decode Base64 strings and files</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>URL Encoder/Decoder</h3>
+                    <p>Encode or decode URLs to make them web-safe</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Color Picker & Converter</h3>
+                    <p>Pick colors and convert between different color formats</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-regex"></i>
+                    </div>
+                    <h3>Regex Tester</h3>
+                    <p>Test and debug regular expressions in real-time</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- stats -->
-  <div class="stats-row">
-    <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Sarkari Tools</div></div>
-    <div class="stat-item"><div class="stat-number">75K+</div><div class="stat-label">Active Users</div></div>
-    <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Secure & Free</div></div>
-    <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Fast Access</div></div>
-  </div>
+    <!-- Color Tools Section -->
+    <section class="tools-section" style="background-color: #f1f5f9;">
+        <div class="container">
+            <div class="section-header">
+                <h2>🎨 Color Tools</h2>
+                <p>Create, convert and analyze colors for your designs</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-eye-dropper"></i>
+                    </div>
+                    <h3>Color Picker from Image</h3>
+                    <p>Extract color palettes from any uploaded image</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>HEX to RGB Converter</h3>
+                    <p>Convert between HEX and RGB color formats</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h3>Gradient Generator</h3>
+                    <p>Create beautiful CSS gradients with custom controls</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-adjust"></i>
+                    </div>
+                    <h3>Contrast Checker</h3>
+                    <p>Check color contrast ratios for accessibility standards</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-swatchbook"></i>
+                    </div>
+                    <h3>Palette Generator</h3>
+                    <p>Generate harmonious color palettes for your projects</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-low-vision"></i>
+                    </div>
+                    <h3>Color Blindness Simulator</h3>
+                    <p>Simulate how colors appear to people with color vision deficiencies</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- search bar -->
-  <div class="search-section">
-    <div class="search-wrapper">
-      <i class="fas fa-search search-icon"></i>
-      <input type="text" id="searchInput" placeholder="Search a tool (converter, pdf, calculator...)">
-    </div>
-  </div>
+    <!-- SEO & Marketing Tools Section -->
+    <section class="tools-section" style="background-color: #f1f5f9;">
+        <div class="container">
+            <div class="section-header">
+                <h2>🌍 SEO & Marketing Tools</h2>
+                <p>Optimize your content and analyze your website performance</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>Keyword Density Checker</h3>
+                    <p>Analyze keyword frequency and density in your content</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h3>Meta Tag Analyzer</h3>
+                    <p>Check and analyze meta tags for SEO optimization</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-font"></i>
+                    </div>
+                    <h3>Word Counter</h3>
+                    <p>Count words, characters and reading time for SEO content</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- category tabs -->
-  <div style="display: flex; justify-content: center;">
-    <div class="cat-tabs" id="categoryTabs">
-      <span class="cat-tab active" data-category="all">All Tools</span>
-      <span class="cat-tab" data-category="document">Document Tools</span>
-      <span class="cat-tab" data-category="converters">Converters</span>
-      <span class="cat-tab" data-category="calculators">Calculators</span>
-      <span class="cat-tab" data-category="utilities">Utilities</span>
-      <span class="cat-tab" data-category="color">Color Tools</span>
-      <span class="cat-tab" data-category="developer">Developer</span>
-    </div>
-  </div>
-
-  <!-- side categories + tool grid -->
-  <div class="collection-area">
-    <div class="categories-side">
-      <h4>Categories</h4>
-      <ul class="side-cat-list" id="sideCategoryList">
-        <li class="active" data-category="all">📌 All Tools</li>
-        <li data-category="document">📄 Document Tools</li>
-        <li data-category="converters">🔄 Converters</li>
-        <li data-category="calculators">🧮 Calculators</li>
-        <li data-category="utilities">🛠️ Utilities</li>
-        <li data-category="color">🎨 Color Tools</li>
-        <li data-category="developer">🌐 Developer</li>
-      </ul>
-    </div>
-
-    <!-- tools grid (dynamic) -->
-    <div class="tools-grid-parent">
-      <div class="tools-grid" id="dynamicToolGrid"></div>
-    </div>
-  </div>
-
-  <!-- process section -->
-  <div class="process-section">
-    <div class="process-header"><i class="fas fa-magic" style="color: var(--blue-primary);"></i> Process & Generate</div>
-    <div style="text-align: center; max-width:600px; margin: 0 auto 30px; color:#32648c;">Let our tools work for you – intuitive and user‑friendly.</div>
-    <div class="process-steps">
-      <div class="step-item"><div class="step-num">1</div><p>Choose Your Tool</p></div>
-      <div class="step-item"><div class="step-num">2</div><p>Configure</p></div>
-      <div class="step-item"><div class="step-num">3</div><p>Start Using</p></div>
-      <div class="step-item"><div class="step-num">4</div><p>View All Tools</p></div>
-    </div>
-  </div>
-
-  <!-- why choose -->
-  <div class="why-section">
-    <div class="why-left">
-      <h3>Why Choose Tools Wonder?</h3>
-      <p style="font-size: 1.2rem; margin-top: 20px;">The most trusted online toolkit for everyday tasks.</p>
-    </div>
-    <div class="why-features">
-      <div class="feature"><i class="fas fa-bolt"></i><h4>Lightning Fast</h4><p>Instant results</p></div>
-      <div class="feature"><i class="fas fa-lock"></i><h4>100% Secure</h4><p>Encrypted & safe</p></div>
-      <div class="feature"><i class="fas fa-fingerprint"></i><h4>Thumb Resizer</h4><p>Perfect for docs</p></div>
-      <div class="feature"><i class="fas fa-compress-alt"></i><h4>Compression</h4><p>6MB / 20KB data</p></div>
-      <div class="feature"><i class="fas fa-qrcode"></i><h4>QR Scanner</h4><p>All-in-One scanner</p></div>
-    </div>
-  </div>
-
-  <!-- footer -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-logo">
-        <h2>Tools Wonder</h2>
-        <p>Simplifying your digital life.</p>
-      </div>
-      <div class="footer-email">
-        <i class="fas fa-envelope"></i> <a href="mailto:toolswonder1@gmail.com">toolswonder1@gmail.com</a>
-      </div>
-      <div class="footer-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
-      </div>
-    </div>
-  </footer>
-</div>
-
-<script>
-  (function() {
-    // ------------- TOOL DATABASE with exact card structure -------------
-    const tools = [
-      // Image tools (converters / utilities)
-      { name: "Image Converter", desc: "Convert between JPG, PNG, GIF, WEBP and more formats", icon: "fa-image", category: "converters", link: "Resume-CV-Make.html" },
-      { name: "Image Compressor", desc: "Reduce image file size while maintaining quality", icon: "fa-compress-alt", category: "utilities", link: "image-compressor.html" },
-      { name: "Image Resizer", desc: "Resize images to any dimension for any platform", icon: "fa-expand-alt", category: "utilities", link: "image-resizer.html" },
-      { name: "Image Cropper", desc: "Crop unwanted areas precisely", icon: "fa-crop", category: "utilities", link: "image-cropper.html" },
-      { name: "Image to Text (OCR)", desc: "Extract text from images", icon: "fa-font", category: "converters", link: "ocr.html" },
-      // Document tools
-      { name: "PDF to Word", desc: "Convert PDF files to editable Word documents", icon: "fa-file-pdf", category: "document", link: "pdf-to-word.html" },
-      { name: "PDF Compressor", desc: "Reduce PDF file size", icon: "fa-file-pdf", category: "document", link: "pdf-compressor.html" },
-      { name: "PDF Merger", desc: "Combine multiple PDFs into one", icon: "fa-file-pdf", category: "document", link: "pdf-merger.html" },
-      { name: "PDF Splitter", desc: "Split PDF into separate pages", icon: "fa-file-pdf", category: "document", link: "pdf-splitter.html" },
-      { name: "PDF Lock/Unlock", desc: "Add or remove passwords", icon: "fa-lock", category: "document", link: "pdf-lock.html" },
-      { name: "eSign PDF", desc: "Digital signatures", icon: "fa-pen", category: "document", link: "esign.html" },
-      // Calculator tools
-      { name: "Age Calculator", desc: "Calculate exact age for exams", icon: "fa-calendar-alt", category: "calculators", link: "age-calculator.html" },
-      { name: "BMI Calculator", desc: "Body mass index", icon: "fa-heart", category: "calculators", link: "bmi.html" },
-      { name: "Loan EMI Calculator", desc: "Monthly EMI amount", icon: "fa-rupee-sign", category: "calculators", link: "emi.html" },
-      { name: "GST Calculator", desc: "Tax inclusive/exclusive", icon: "fa-calculator", category: "calculators", link: "gst.html" },
-      { name: "Currency Converter", desc: "Live exchange rates", icon: "fa-exchange-alt", category: "converters", link: "currency.html" },
-      // Text / Utility
-      { name: "Text Case Converter", desc: "UPPER, lower, Title case", icon: "fa-i-cursor", category: "utilities", link: "text-case.html" },
-      { name: "Word Counter", desc: "Count words & characters", icon: "fa-counter", category: "utilities", link: "word-count.html" },
-      { name: "Remove Duplicate Lines", desc: "Clean up text lists", icon: "fa-eraser", category: "utilities", link: "remove-duplicates.html" },
-      // Developer tools
-      { name: "JSON Formatter", desc: "Validate & pretty-print JSON", icon: "fa-code", category: "developer", link: "json-formatter.html" },
-      { name: "HTML/CSS Minifier", desc: "Minify code", icon: "fa-code", category: "developer", link: "minifier.html" },
-      { name: "Base64 Encoder", desc: "Encode to base64", icon: "fa-lock", category: "developer", link: "base64.html" },
-      { name: "URL Encoder", desc: "Percent encoding", icon: "fa-link", category: "developer", link: "url-encode.html" },
-      { name: "Regex Tester", desc: "Test regular expressions", icon: "fa-terminal", category: "developer", link: "regex.html" },
-      // Color tools
-      { name: "Color Picker", desc: "Pick from image, HEX/RGB", icon: "fa-palette", category: "color", link: "color-picker.html" },
-      { name: "HEX to RGB", desc: "Convert color codes", icon: "fa-palette", category: "color", link: "hex-to-rgb.html" },
-      { name: "Gradient Generator", desc: "Create CSS gradients", icon: "fa-paint-brush", category: "color", link: "gradient.html" },
-      { name: "Contrast Checker", desc: "Check WCAG contrast", icon: "fa-eye", category: "color", link: "contrast.html" },
-      // Utility extras
-      { name: "QR Generator", desc: "QR for docs & links", icon: "fa-qrcode", category: "utilities", link: "qr.html" },
-      { name: "Barcode Generator", desc: "Generate barcodes", icon: "fa-barcode", category: "utilities", link: "barcode.html" },
-      { name: "UUID Generator", desc: "Unique identifiers", icon: "fa-id-card", category: "utilities", link: "uuid.html" },
-      { name: "Unit Converter", desc: "Length, mass, volume", icon: "fa-scale-balanced", category: "converters", link: "unit-converter.html" },
-      { name: "Password Generator", desc: "Secure random passwords", icon: "fa-key", category: "utilities", link: "password.html" }
-    ];
-
-    const grid = document.getElementById('dynamicToolGrid');
-    const searchInput = document.getElementById('searchInput');
-    const catTabs = document.querySelectorAll('.cat-tab');
-    const sideItems = document.querySelectorAll('#sideCategoryList li');
-
-    let currentCategory = 'all';
-    let searchTerm = '';
-
-    // Render cards based on category + search
-    function render() {
-      let filtered = tools.filter(t => 
-        (currentCategory === 'all' || t.category === currentCategory) &&
-        (t.name.toLowerCase().includes(searchTerm) || t.desc.toLowerCase().includes(searchTerm))
-      );
-
-      grid.innerHTML = '';
-      filtered.forEach(t => {
-        const card = document.createElement('div');
-        card.className = 'tool-card';
-        // using exact requested structure
-        card.innerHTML = `
-          <div class="tool-icon-container">
-            <i class="fas ${t.icon}"></i>
-          </div>
-          <h3>${t.name}</h3>
-          <p>${t.desc}</p>
-          <a href="${t.link}" class="tool-button">Use Tool</a>
-        `;
-        grid.appendChild(card);
-      });
-
-      // if no results
-      if (filtered.length === 0) {
-        grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding:40px;">No tools match your search.</p>';
-      }
-    }
-
-    // update active UI
-    function setActiveCategory(cat) {
-      currentCategory = cat;
-      // update tabs
-      catTabs.forEach(tab => {
-        if (tab.dataset.category === cat) tab.classList.add('active');
-        else tab.classList.remove('active');
-      });
-      sideItems.forEach(item => {
-        if (item.dataset.category === cat) item.classList.add('active');
-        else item.classList.remove('active');
-      });
-      render();
-    }
-
-    // event listeners
-    catTabs.forEach(tab => {
-      tab.addEventListener('click', (e) => {
-        e.preventDefault();
-        setActiveCategory(tab.dataset.category);
-      });
-    });
-
-    sideItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        setActiveCategory(item.dataset.category);
-      });
-    });
-
-    searchInput.addEventListener('input', (e) => {
-      searchTerm = e.target.value.trim().toLowerCase();
-      render();
-    });
-
-    // block dummy navigation for demo (but keep links as they are)
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        // allow actual navigation only for tool buttons (they have real .html links)
-        if (!link.classList.contains('tool-button')) {
-          e.preventDefault(); // prevent header/footer dummy links
+    <!-- Utility Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🛠️ Utility Tools</h2>
+                <p>Handy tools for various everyday needs</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3>QR Code Generator & Scanner</h3>
+                    <p>Create and scan QR codes for URLs, text, and more</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-barcode"></i>
+                    </div>
+                    <h3>Barcode Generator</h3>
+                    <p>Generate barcodes in various formats for products</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <h3>UUID Generator</h3>
+                    <p>Generate universally unique identifiers (UUIDs)</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <h3>Unit Converter</h3>
+                    <p>Convert between various units of measurement</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Time Zone Converter</h3>
+                    <p>Convert times between different time zones</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon-container">
+                        <i class="fas fa-random"></i>
+                    </div>
+                    <h3>Random Number/Password Generator</h3>
+                    <p>Generate secure random numbers and passwords</p>
+                    <a href="#" class="tool-button">Use Tool</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">Tools<span>Wonder</span></a>
+                    <p>Simplifying your digital life with powerful, easy-to-use tools for all your needs.</p>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> toolswonder1@gmail.com</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#tools">All Tools</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 Tools Wonder. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle functionality
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const nav = document.querySelector('nav');
+            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // Search functionality
+        document.getElementById('searchButton').addEventListener('click', function() {
+            performSearch();
+        });
+        
+        // Also search when Enter key is pressed
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const resultsContainer = document.getElementById('searchResults');
+            const resultsList = document.getElementById('resultsList');
+            
+            // Clear previous results
+            resultsList.innerHTML = '';
+            
+            if (searchTerm.trim() === '') {
+                resultsContainer.style.display = 'none';
+                return;
+            }
+            
+            // Get all tool cards
+            const toolCards = document.querySelectorAll('.tool-card');
+            let foundResults = false;
+            
+            toolCards.forEach(card => {
+                const toolName = card.querySelector('h3').textContent.toLowerCase();
+                const toolDesc = card.querySelector('p').textContent.toLowerCase();
+                
+                if (toolName.includes(searchTerm) || toolDesc.includes(searchTerm)) {
+                    foundResults = true;
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = '#' + card.closest('.tools-section').id;
+                    link.textContent = toolName;
+                    link.onclick = function() {
+                        // Scroll to the tool section
+                        card.scrollIntoView({ behavior: 'smooth' });
+                        // Highlight the card
+                        card.style.boxShadow = '0 0 0 3px var(--primary-blue)';
+                        setTimeout(() => {
+                            card.style.boxShadow = 'var(--shadow)';
+                        }, 2000);
+                        resultsContainer.style.display = 'none';
+                    };
+                    listItem.appendChild(link);
+                    resultsList.appendChild(listItem);
+                }
+            });
+            
+            if (foundResults) {
+                resultsContainer.style.display = 'block';
+            } else {
+                const listItem = document.createElement('li');
+                listItem.textContent = 'No tools found matching your search.';
+                resultsList.appendChild(listItem);
+                resultsContainer.style.display = 'block';
+            }
         }
-      });
-    });
-
-    // initial render
-    render();
-  })();
-</script>
+        
+        // Close search results when clicking outside
+        document.addEventListener('click', function(event) {
+            const searchContainer = document.querySelector('.search-container');
+            if (!searchContainer.contains(event.target)) {
+                document.getElementById('searchResults').style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
+
+  
+  
